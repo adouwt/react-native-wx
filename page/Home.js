@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, Button  } from 'react-native';
 import TabBar from '../component/tabBar'
+import { formateTime } from '../utils/formate-time.js'
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -12,7 +13,7 @@ class HomeScreen extends React.Component {
     }
 
   componentDidMount(){
-    return fetch('https://api.scampus.cn/get/alluser')
+    return fetch('http://localhost:4000/get/alluser')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -41,7 +42,7 @@ class HomeScreen extends React.Component {
     }
 
     return(
-      <View style={{flex: 1, padding: 20}}>
+      <View style={{flex: 1, padding: 10}}>
         {/* <Text>UserList Screen</Text> */}
         {/* <Button
                 title="Go back"
@@ -53,7 +54,13 @@ class HomeScreen extends React.Component {
             ({item}) => 
               <View style={styles.container}>
                 <Image  style={styles.image} source={{uri: item.avatar_url, width: 64, height: 64}}  />
-                <Text style={styles.txt} >{item.name}, {item.created_at}</Text>
+                <View style={styles.txtwarpper}>
+                    <View style={styles.txt}>
+                        <Text style={styles.name}>{item.name}</Text>
+                        <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
+                    </View>
+                    <Text style={styles.time}>{formateTime(new Date(item.created_at))}</Text>
+                </View>
               </View>
           }
           keyExtractor={(item, index) => item._id}
@@ -65,27 +72,44 @@ class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 20,
-    borderStyle: 'solid',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderRadius: 5,
-    marginBottom: 15
-  },
-  image: {
-    flex: 1,
-    borderRadius: 4,
-  },
-  txt: {
-    padding: 10,
-    fontSize: 18,
-    flex: 3
-  },
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        marginBottom: 15,
+        marginTop: 15,
+    },
+    image: {
+        flex: 1,
+        borderRadius: 4,
+    },
+    txtwarpper: {
+        flex: 5,
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        borderStyle: 'solid',
+        borderBottomColor: '#ccc'
+    },
+    txt: {
+        padding: 10,
+        flex: 3,
+        overflow: 'hidden',
+        flexWrap: 'nowrap'// 没有用
+    },
+    name: {
+        fontSize: 18,
+        // flex:1
+    },
+    content: {
+        color: '#ddd',
+        fontSize: 14
+    },
+    time: {
+        flex: 1,
+        flexWrap: 'nowrap',
+        color: '#ddd',
+        fontSize: 12,
+        textAlign: 'right',
+    }
 })
 
 export default HomeScreen
