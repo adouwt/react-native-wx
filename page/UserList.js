@@ -1,90 +1,144 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, Button  } from 'react-native';
+import { SectionList, StyleSheet, Text, View, Image } from 'react-native';
 import TabBar from '../component/tabBar'
 
-class FetchExample extends React.Component {
+class UserListScreen extends React.Component {
     static navigationOptions = {
-        title: 'UserList',
+        title: '通讯录',
     };
-    constructor(props){
-        super(props);
-        this.state ={ isLoading: true}
-    }
-
-  componentDidMount(){
-    return fetch('https://api.scampus.cn/get/alluser')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson.users,
-        }, function(){
-
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
-  }
-
-
-
-  render(){
-
-    if(this.state.isLoading){
-      return(
-        <View style={{flex: 1, padding: 20,marginTop: 100}}>
-          <ActivityIndicator/>
+    render() {
+      return (
+        <View style={{ flex: 1, padding: 20}}>
+            <View style={{ flex: 1}}>
+                <SectionList
+                    renderSectionHeader={({ section }) => (
+                      <Text style={styles.sectionHeader}>{section.title}</Text>
+                    )}
+                    renderItem={({ item, index, section }) => (
+                      <View style={styles.container}>
+                        <Image  style={styles.image} source={{uri: item.avatar_url, width: 40, height: 40}}  />
+                        <Text key={index} style={styles.txt}>{item.name}</Text>
+                      </View>
+                    )}
+                    sections={[
+                        { title: "A", data: 
+                          [
+                            {
+                              "avatar_url": 'https://pic.qqtn.com/up/2017-10/15082099204249036.jpg',
+                              "name": '阿逗'
+                            }, 
+                            {
+                              "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                              "name": '阿逗1'
+                            },
+                            {
+                              "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                              "name": '爱你呀'
+                            },
+                          ]  
+                        },
+                        { title: "B", data: 
+                          [
+                            {
+                              "avatar_url": 'https://pic.qqtn.com/up/2017-10/15082099205103498.jpg',
+                              "name": 'Bob'
+                            }, 
+                            {
+                              "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                              "name": '鲍鱼'
+                            },
+                            {
+                              "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                              "name": '暴雷了'
+                            },
+                          ]  
+                        },
+                        { title: "C", data: 
+                          [
+                            {
+                              "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                              "name": '次噢'
+                            }, 
+                            {
+                              "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                              "name": '次次恩'
+                            },
+                            {
+                              "avatar_url": 'https://pic.qqtn.com/up/2017-10/15082099202446042.jpg',
+                              "name": '刺客荆轲'
+                            },
+                          ]  
+                        },
+                        { title: "D", data: 
+                          [
+                            {
+                              "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                              "name": '第一'
+                            }, 
+                            {
+                              "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                              "name": '第二梦'
+                            },
+                            {
+                              "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                              "name": '第三'
+                            },
+                          ]  
+                        },
+                        { title: "E", data: 
+                        [
+                          {
+                            "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                            "name": '迩伶贰'
+                          }, 
+                          {
+                            "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                            "name": '尔冬升'
+                          },
+                          {
+                            "avatar_url": 'http://www.imeitou.com/uploads/allimg/2018041608/jwzx4afoxf5.jpg',
+                            "name": '尔豪'
+                          },
+                        ]  
+                      },
+                    ]}
+                    keyExtractor={(item, index) => item + index}
+                />
+                <TabBar navigation={this.props.navigation} active='UserList'/>
+            </View>
         </View>
-      )
-    }
-
-    return(
-      <View style={{flex: 1, padding: 20}}>
-        {/* <Text>UserList Screen</Text> */}
-        {/* <Button
-                title="Go back"
-                onPress={() => this.props.navigation.goBack()}
-        /> */}
-        <FlatList
-          data={this.state.dataSource}
-          renderItem= {
-            ({item}) => 
-              <View style={styles.container}>
-                <Image  style={styles.image} source={{uri: item.avatar_url, width: 64, height: 64}}  />
-                <Text style={styles.txt} >{item.name}, {item.created_at}</Text>
-              </View>
-          }
-          keyExtractor={(item, index) => item._id}
-        />
-        <TabBar navigation={this.props.navigation} active='UserList'/>
-      </View>
-    );
-  }
+      );
+    }  
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 20,
-    borderStyle: 'solid',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderRadius: 4,
-    marginBottom: 15
-  },
-  image: {
-    flex: 1,
-  },
-  txt: {
-    padding: 10,
-    fontSize: 18,
-    flex: 3
-  },
+    container: {
+        flex: 1,
+        paddingTop: 10,
+        paddingBottom: 10,
+        flexDirection: 'row'
+    },
+    sectionHeader: {
+        paddingTop: 2,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 2,
+        fontSize: 14,
+        fontWeight: 'bold',
+        backgroundColor: '#ddd',
+    },
+    txt: {
+        padding: 10,
+        fontSize: 18,
+        height: 44,
+        color: 'red',
+        flex: 4
+    },
+    image: {
+      flex: 1,
+      borderRadius: 10
+    },
+
 })
 
-export default FetchExample
+export default UserListScreen
