@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, Button  } from 'react-native';
+import TabBar from '../component/tabBar'
 
 class FetchExample extends React.Component {
     static navigationOptions = {
@@ -40,7 +41,7 @@ class FetchExample extends React.Component {
     }
 
     return(
-      <View style={{flex: 1, padding:20}}>
+      <View style={{flex: 1, padding: 20}}>
         {/* <Text>UserList Screen</Text> */}
         {/* <Button
                 title="Go back"
@@ -57,6 +58,7 @@ class FetchExample extends React.Component {
           }
           keyExtractor={(item, index) => item._id}
         />
+        <TabBar navigation={this.props.navigation} active='UserList'/>
       </View>
     );
   }
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    paddingTop: 22,
+    padding: 20,
     borderStyle: 'solid',
     borderTopWidth: 1,
     borderBottomWidth: 1,
