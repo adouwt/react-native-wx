@@ -39,18 +39,18 @@ const formateTime = (timeStr) =>{
                     break;
             }
         }
-    }else {
+    } else {
         var formateTimeStr = '';
-        if(daySnippetHour>0 && daySnippetHour<6 ) {
+        if(daySnippetHour>0 && daySnippetHour<=6 ) {
             formateTimeStr =  `凌晨${daySnippetHour}:${daySnippetMinute}`
         }
-        if(daySnippetHour>6 && daySnippetHour<9 ) {
+        if(daySnippetHour>6 && daySnippetHour<=9 ) {
             formateTimeStr = `早上${daySnippetHour}:${daySnippetMinute}`
         }
-        if(daySnippetHour>9 && daySnippetHour<12 ) {
+        if(daySnippetHour>9 && daySnippetHour<=12 ) {
             formateTimeStr = `上午${daySnippetHour}:${daySnippetMinute}`
         }
-        if(daySnippetHour>12 && daySnippetHour<18 ) {
+        if(daySnippetHour>12 && daySnippetHour<=18 ) {
             formateTimeStr = `下午${daySnippetHour}:${daySnippetMinute}`
         }
         if(daySnippetHour>18 && daySnippetHour<24 ) {
@@ -58,7 +58,6 @@ const formateTime = (timeStr) =>{
         }
         
     }
-
     return formateTimeStr
 }
 

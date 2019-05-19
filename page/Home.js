@@ -90,13 +90,16 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ccc'
     },
     txt: {
-        padding: 10,
+        paddingTop: 10,
         flex: 3,
         overflow: 'hidden',
-        flexWrap: 'nowrap'// 没有用
+        flexWrap: 'nowrap',// 没有用
+        alignItems: 'flex-start',
+        justifyContent: 'center'
     },
     name: {
         fontSize: 18,
+        paddingBottom: 5
         // flex:1
     },
     content: {
