@@ -13,7 +13,7 @@ class HomeScreen extends React.Component {
     }
 
   componentDidMount(){
-    return fetch('http://localhost:4000/get/alluser')
+    return fetch('https://api.scampus.cn/get/alluser')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
