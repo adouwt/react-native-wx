@@ -13,7 +13,7 @@ class HomeScreen extends React.Component {
     }
 
   componentDidMount(){
-    return fetch('https://api.scampus.cn/get/alluser')
+    return fetch('http://localhost:4000/get/alluser')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -42,7 +42,7 @@ class HomeScreen extends React.Component {
     }
 
     return(
-      <View style={{flex: 1, padding: 10}}>
+      <View style={{flex: 1, padding: 10, paddingBottom: 20}}>
         {/* <Text>UserList Screen</Text> */}
         {/* <Button
                 title="Go back"
