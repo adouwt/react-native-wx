@@ -13,7 +13,7 @@ class HomeScreen extends React.Component {
     }
 
   componentDidMount(){
-    return fetch('http://localhost:4000/get/alluser')
+    return fetch('http://18.10.1.115:4000/get/alluser')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -53,13 +53,13 @@ class HomeScreen extends React.Component {
           renderItem= {
             ({item}) => 
               <View style={styles.container}>
-                <Image  style={styles.image} source={{uri: item.avatar_url, width: 64, height: 64}}  />
+                <Image  style={styles.image} source={{uri: item.avatar_url, width: 44, height: 44}}  />
                 <View style={styles.txtwarpper}>
                     <View style={styles.txt}>
                         <Text style={styles.name}>{item.name}</Text>
                         <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
                     </View>
-                    <Text style={styles.time}>{formateTime(new Date(item.created_at))}</Text>
+                    <Text style={styles.time}>{item.regsiterTime}</Text>
                 </View>
               </View>
           }
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderStyle: 'solid',
-        borderBottomColor: '#ccc'
+        borderBottomColor: '#ccc',
+        marginLeft: 10
     },
     txt: {
         paddingTop: 10,
