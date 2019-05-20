@@ -12,7 +12,7 @@ class DetailsScreen extends React.Component {
                 <View style={styles.container}>
                     <Text style={styles.txt} >ccccccc</Text>
                 </View>
-                <TabBar navigation={this.props.navigation} active='discover'/>
+                {/* <TabBar navigation={this.props.navigation} active='discover'/> */}
                 {/* 此处有坑， 引用子组件，子组件里面的navigation的指向有变动，需要将react里面的navigation 传递给子组件 */}
             </View>
         );

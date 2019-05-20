@@ -104,7 +104,7 @@ class UserListScreen extends React.Component {
                     ]}
                     keyExtractor={(item, index) => item + index}
                 />
-                <TabBar navigation={this.props.navigation} active='UserList'/>
+                {/* <TabBar navigation={this.props.navigation} active='UserList'/> */}
             </View>
         </View>
       );

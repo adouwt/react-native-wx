@@ -13,7 +13,8 @@ class HomeScreen extends React.Component {
     }
 
   componentDidMount(){
-    return fetch('http://18.10.1.115:4000/get/alluser')
+    // return fetch('http://18.10.1.115:4000/get/alluser')
+    return fetch('https://api.scampus.cn/get/alluser')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -43,11 +44,6 @@ class HomeScreen extends React.Component {
 
     return(
       <View style={{flex: 1, padding: 10, paddingBottom: 20}}>
-        {/* <Text>UserList Screen</Text> */}
-        {/* <Button
-                title="Go back"
-                onPress={() => this.props.navigation.goBack()}
-        /> */}
         <FlatList
           data={this.state.dataSource}
           renderItem= {
@@ -65,7 +61,7 @@ class HomeScreen extends React.Component {
           }
           keyExtractor={(item, index) => item._id}
         />
-        <TabBar navigation={this.props.navigation} active='Home'/>
+        {/* <TabBar navigation={this.props.navigation} active='Home'/> */}
       </View>
     );
   }

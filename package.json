@@ -1,5 +1,5 @@
 {
-  "name": "awesomeProjectDemo",
+  "name": "rn-weixin",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo/vector-icons": "6.2.2",
     "react": "16.8.3",
     "react-native": "0.59.8",
     "react-native-gesture-handler": "^1.2.1",
