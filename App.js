@@ -3,19 +3,36 @@ import HomeScreen  from './page/Home'
 import DetailsScreen from './page/Detail'
 import UserListScreen from './page/UserList'
 import MyScreen from './page/My'
-import { View } from 'react-native';
-import { createAppContainer, createBottomTabNavigator, StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
+import Icon from "react-native-vector-icons/Ionicons";
+import { View, Text } from 'react-native';
+import { createAppContainer, createBottomTabNavigator, createStackNavigator, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
 
+const headerCon = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+    },
+    UserList: {
+      screen: UserListScreen,
+    },
+    Details: {
+      screen: DetailsScreen,
+    },
+    My: {
+      screen: MyScreen,
+    },
+  }
+)
 const AppNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: HomeScreen,
     },
-    Details: {
-      screen: DetailsScreen,
-    },
     UserList: {
       screen: UserListScreen,
+    },
+    Details: {
+      screen: DetailsScreen,
     },
     My: {
       screen: MyScreen,
@@ -26,16 +43,45 @@ const AppNavigator = createBottomTabNavigator(
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
         let iconName;
-        if (routeName === 'Home') {
-          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-          // Sometimes we want to add badges to some icons. 
-          // You can check the implementation below.
-        } else if (routeName === 'UserList') {
-          iconName = `ios-options`;
+        let badgeCount = 3
+        switch(routeName) {
+          case 'Home': 
+            iconName = 'logo-twitter';
+            break;
+          case 'UserList': 
+            iconName = 'md-arrow-back';
+            break;
+          case 'Details': 
+            iconName = 'md-more';
+            break;
+          case 'My': 
+            iconName = 'md-settings';
+            break;
         }
+        iconColor = `${focused ? 'tomato' : 'gray'}`;
 
-        // You can return any component that you like here!
-        return <View name={iconName} size={25} color={tintColor} />;
+        return (
+          <View>
+            <Icon name={iconName} size={18} color={iconColor}></Icon>
+            { routeName === 'Details' && badgeCount > 0 && (
+              <View style={{
+                // If you're using react-native < 0.57 overflow outside of the parent
+                // will not work on Android, see https://git.io/fhLJ8
+                position: 'absolute',
+                right: -6,
+                top: -3,
+                backgroundColor: 'red',
+                borderRadius: 6,
+                width: 12,
+                height: 12,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>{badgeCount}</Text>
+              </View>
+            )}
+          </View>
+        )
       },
     }),
     tabBarOptions: {

@@ -1,10 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import TabBar from '../component/tabBar'
+import { View, Text, Button, StyleSheet } from 'react-native';
 
 class DetailsScreen extends React.Component {
     static navigationOptions = {
         title: '发现',
+        headerTitle: <View />,
+        headerRight: (
+            <Button
+            onPress={() => alert('This is a button!')}
+            title="Info"
+            color="#fff"
+            />
+        ),
     };
     render() {
         return (
@@ -18,6 +25,8 @@ class DetailsScreen extends React.Component {
         );
     }
 }
+
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
