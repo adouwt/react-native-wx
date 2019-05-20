@@ -15,7 +15,10 @@ class DetailsScreen extends React.Component {
     };
     render() {
         return (
-            <View style={{flex: 1, padding: 20}}>
+            <View style={{flex: 1, paddingBottom: 20}}>
+                <View style={{paddingTop: 40,paddingLeft: 20,lineHeight:60, height: 60, textAlign: 'center', backgroundColor: '#00c1de', fontWeight: 'bold', fontSize: 30}}>
+                  <Text>发现</Text>
+                </View>
                 <View style={styles.container}>
                     <Text style={styles.txt} >ccccccc</Text>
                 </View>
@@ -38,7 +41,11 @@ const styles = StyleSheet.create({
       borderLeftWidth: 1,
       borderRightWidth: 1,
       borderRadius: 4,
-      marginBottom: 15
+      marginBottom: 15,
+      marginBottom: 15,
+      marginLeft: 15,
+      marginRight: 15,
+      marginTop: 15
     },
   })
 

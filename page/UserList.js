@@ -8,9 +8,13 @@ class UserListScreen extends React.Component {
     };
     render() {
       return (
-        <View style={{ flex: 1, padding: 20}}>
+        <View style={{ flex: 1, paddingBottom: 20}}>
             <View style={{ flex: 1}}>
+                <View style={{paddingTop: 40,paddingLeft: 20,lineHeight:60, height: 60, textAlign: 'center', backgroundColor: '#00c1de', fontWeight: 'bold', fontSize: 30}}>
+                  <Text>通讯录</Text>
+                </View>
                 <SectionList
+                    style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 10}}
                     renderSectionHeader={({ section }) => (
                       <Text style={styles.sectionHeader}>{section.title}</Text>
                     )}

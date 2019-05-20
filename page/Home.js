@@ -4,9 +4,16 @@ import TabBar from '../component/tabBar'
 import { formateTime } from '../utils/formate-time.js'
 
 class HomeScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Home',
-    };
+  static navigationOptions = {
+    title: '微信',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
     constructor(props){
         super(props);
         this.state ={ isLoading: true}
@@ -43,8 +50,10 @@ class HomeScreen extends React.Component {
     }
 
     return(
-      <View style={{flex: 1, padding: 10, paddingBottom: 20}}>
+      <View style={{flex: 1, paddingBottom: 20}}>
+        <View style={{paddingTop: 40,paddingLeft: 20,lineHeight:60, height: 60, textAlign: 'center', backgroundColor: '#00c1de', fontWeight: 'bold', fontSize: 30}}><Text>微信</Text></View>
         <FlatList
+          style={{padding: 10}}
           data={this.state.dataSource}
           renderItem= {
             ({item}) => 
