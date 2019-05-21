@@ -15,10 +15,8 @@ const PendingView = () => (
       <Text>Waiting</Text>
     </View>
 );
-class DetailsScreen extends React.Component {
-    static navigationOptions = {
-        title: '发现',
-    }
+class CameraComponent extends React.Component {
+
     constructor(props) {
         super(props)
         this.state = {
@@ -36,14 +34,6 @@ class DetailsScreen extends React.Component {
     render() {
         return (
             <View style={{flex: 1, paddingBottom: 20}}>
-                <View style={styles.DetailsScreenHeader}>
-                    <Text style={styles.headerTxt}>发现</Text>
-                    <TouchableOpacity  onPress={this.takePicture}  activeOpacity={0.2} focusedOpacity={0.5}>
-                        <View style={styles.addPhoto}>
-                        <Text style={{color:'#ffffff'}}>+</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
                 <View style={styles.container}>
                     <View style={styles.container}>
                         <RNCamera
@@ -51,8 +41,9 @@ class DetailsScreen extends React.Component {
                                 this.camera = ref;
                             }}
                             style={styles.preview}
-                            type={RNCamera.Constants.Type.back}
+                            type={RNCamera.Constants.Type.front }
                             flashMode={RNCamera.Constants.FlashMode.on}
+                            autoFocus={RNCamera.Constants.AutoFocus.off}
                             androidCameraPermissionOptions={{
                                 title: 'Permission to use camera',
                                 message: 'We need your permission to use your camera',
@@ -144,4 +135,4 @@ const styles = StyleSheet.create({
     },
   })
 
-export default DetailsScreen
+export default CameraComponent

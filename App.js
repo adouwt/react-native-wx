@@ -3,26 +3,11 @@ import HomeScreen  from './page/Home'
 import DetailsScreen from './page/Detail'
 import UserListScreen from './page/UserList'
 import MyScreen from './page/My'
+import CameraComponent from './component/camera'
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text } from 'react-native';
-import { createAppContainer, createBottomTabNavigator, createStackNavigator, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
+import { createAppContainer, createBottomTabNavigator } from 'react-navigation'; // Version can be specified in package.json
 
-const headerCon = createStackNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-    },
-    UserList: {
-      screen: UserListScreen,
-    },
-    Details: {
-      screen: DetailsScreen,
-    },
-    My: {
-      screen: MyScreen,
-    },
-  }
-)
 const AppNavigator = createBottomTabNavigator(
   {
     Home: {
