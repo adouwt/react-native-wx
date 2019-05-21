@@ -25,40 +25,6 @@ const DetailsNav = createStackNavigator(
       screen: DetailsScreen,
     }
   },
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-        let iconColor = `${focused ? 'tomato' : 'gray'}`;
-        let badgeCount = 3
-        return (
-          <View>
-            <Icon name="md-more" size={18} color={iconColor}></Icon>
-            { badgeCount > 0 && (
-              <View style={{
-                // If you're using react-native < 0.57 overflow outside of the parent
-                // will not work on Android, see https://git.io/fhLJ8
-                position: 'absolute',
-                right: -6,
-                top: -3,
-                backgroundColor: 'red',
-                borderRadius: 6,
-                width: 12,
-                height: 12,
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
-                <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>{badgeCount}</Text>
-              </View>
-            )}
-          </View>
-        )
-      },
-    }),
-    tabBarOptions: {
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
-    },
-  }
 )
 
 const MyNav = createStackNavigator(
@@ -66,6 +32,15 @@ const MyNav = createStackNavigator(
     My: {
       screen: MyScreen,
     },
+  },
+);
+
+export default createAppContainer(createBottomTabNavigator(
+  {
+    微信: HomeNav,
+    通讯录: UserListNav,
+    发现: DetailsNav,
+    我: MyNav,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -75,7 +50,7 @@ const MyNav = createStackNavigator(
         let badgeCount = 3
         switch(routeName) {
           case 'Home': 
-            iconName = 'logo-twitter';
+            iconName = 'ios-options';
             break;
           case 'UserList': 
             iconName = 'md-arrow-back';
@@ -114,16 +89,9 @@ const MyNav = createStackNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'tomato',
+      activeTintColor: '#00c1de',
       inactiveTintColor: 'gray',
+      showIcon: true
     },
-  }
-);
-
-export default createAppContainer(createBottomTabNavigator({
-    微信: HomeNav,
-    通讯录: UserListNav,
-    发现: DetailsNav,
-    我: MyNav,
   }
 ));

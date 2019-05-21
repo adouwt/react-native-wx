@@ -4,8 +4,16 @@ import NavigationService from '../component/NavigationService';
 
 class DetailsScreen extends React.Component {
     static navigationOptions = {
-        title: '发现',
-    }
+        headerTitle: <Text>发现</Text>,
+        headerRight: (
+          <Button
+            onPress={() => {alert(123456)}}
+            title="+"
+            color="#333"
+            fontSize='14'
+          />
+        ),
+      };
     constructor(props) {
         super(props)
         this.state = {
@@ -23,15 +31,8 @@ class DetailsScreen extends React.Component {
     
     render() {
         return (
-            <View style={{flex: 1, paddingBottom: 20}}>
-                <View style={styles.DetailsScreenHeader}>
-                    <Text style={styles.headerTxt}>发现</Text>
-                    <TouchableOpacity  onPress={this.takePicture}  activeOpacity={0.2} focusedOpacity={0.5}>
-                        <View style={styles.addPhoto}>
-                        <Text style={{color:'#ffffff'}}>+</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+            <View style={{flex: 1, padding: 20}}>
+                <Text>发现你的美</Text>
             </View>
         );
     }
