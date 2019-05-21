@@ -5,12 +5,15 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "handelErr": "yarn add @babel/runtime@7.0.0"
+    "runtime": "yarn add @babel/runtime@7.0.0",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios"
   },
   "dependencies": {
     "@expo/vector-icons": "6.2.2",
     "react": "16.8.3",
     "react-native": "0.59.8",
+    "react-native-camera": "^2.9.0",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-vector-icons": "^6.4.2",
     "react-native-webview": "^5.9.0",

@@ -8,7 +8,7 @@ class MyScreen extends React.Component {
     render() {
         return (
             <View style={{flex: 1, paddingBottom: 20}}>
-                <View style={{paddingTop: 40,paddingLeft: 20,lineHeight:60, height: 60, textAlign: 'center', backgroundColor: '#00c1de', fontWeight: 'bold', fontSize: 30}}>
+                <View style={styles.DetailsScreenHeader}>
                   <Text>我</Text>
                 </View>
                 <View style={styles.container}>
@@ -36,6 +36,19 @@ const styles = StyleSheet.create({
       marginRight: 15,
       marginTop: 15,
     },
+    DetailsScreenHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems:'center',
+      paddingLeft: 20,
+      paddingRight: 20,
+      lineHeight:60, 
+      height: 60, 
+      backgroundColor: '#00c1de', 
+      fontWeight: 'bold',
+      fontSize: 30,
+      position: 'relative'
+  },
   })
 
 export default MyScreen

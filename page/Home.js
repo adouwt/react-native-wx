@@ -50,7 +50,7 @@ class HomeScreen extends React.Component {
 
     return(
       <View style={{flex: 1, paddingBottom: 10}}>
-        <View style={{paddingTop: 40,paddingLeft: 20,lineHeight:60, height: 60, textAlign: 'center', backgroundColor: '#00c1de', fontWeight: 'bold', fontSize: 30}}><Text>微信</Text></View>
+        <View style={styles.DetailsScreenHeader}><Text>微信</Text></View>
         <FlatList
           style={{padding: 10}}
           data={this.state.dataSource}
@@ -80,6 +80,19 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         paddingTop: 5
+    },
+    DetailsScreenHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems:'center',
+      paddingLeft: 20,
+      paddingRight: 20,
+      lineHeight:60, 
+      height: 60, 
+      backgroundColor: '#00c1de', 
+      fontWeight: 'bold',
+      fontSize: 30,
+      position: 'relative'
     },
     image: {
         flex: 1,

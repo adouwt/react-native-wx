@@ -10,7 +10,7 @@ class UserListScreen extends React.Component {
       return (
         <View style={{ flex: 1, paddingBottom: 20}}>
             <View style={{ flex: 1}}>
-                <View style={{paddingTop: 40,paddingLeft: 20,lineHeight:60, height: 60, textAlign: 'center', backgroundColor: '#00c1de', fontWeight: 'bold', fontSize: 30}}>
+                <View style={styles.DetailsScreenHeader}>
                   <Text>通讯录</Text>
                 </View>
                 <SectionList
@@ -117,26 +117,39 @@ class UserListScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingTop: 10,
-        paddingBottom: 10,
-        flexDirection: 'row'
+      flex: 1,
+      paddingTop: 10,
+      paddingBottom: 10,
+      flexDirection: 'row'
+    },
+    DetailsScreenHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems:'center',
+      paddingLeft: 20,
+      paddingRight: 20,
+      lineHeight:60, 
+      height: 60, 
+      backgroundColor: '#00c1de', 
+      fontWeight: 'bold',
+      fontSize: 30,
+      position: 'relative'
     },
     sectionHeader: {
-        paddingTop: 2,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        fontSize: 14,
-        fontWeight: 'bold',
-        backgroundColor: '#ddd',
+      paddingTop: 2,
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingBottom: 2,
+      fontSize: 14,
+      fontWeight: 'bold',
+      backgroundColor: '#ddd',
     },
     txt: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-        color: 'red',
-        flex: 4
+      padding: 10,
+      fontSize: 18,
+      height: 44,
+      color: 'red',
+      flex: 4
     },
     image: {
       flex: 1,

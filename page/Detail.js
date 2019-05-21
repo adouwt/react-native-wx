@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, CameraRoll, ScrollView, Image } from 'react-native';
 
 class DetailsScreen extends React.Component {
     static navigationOptions = {
@@ -15,11 +15,27 @@ class DetailsScreen extends React.Component {
     }
     constructor(props) {
         super(props)
+        this.state = {
+            photos: []
+        }
         this.onButtonPress = this.onButtonPress.bind(this);
     }
     onButtonPress () {
-        alert(44)
+        CameraRoll.getPhotos({
+            first: 20,
+            assetType: 'Photos',
+            })
+            .then(r => {
+                this.setState({ photos: r.edges });
+                // alert(r.edges)
+            })
+            .catch((err) => {
+                //Error Loading Images
+            });
     }
+    _handleButtonPress = () => {
+    
+    };
     render() {
         return (
             <View style={{flex: 1, paddingBottom: 20}}>
@@ -33,6 +49,20 @@ class DetailsScreen extends React.Component {
                 </View>
                 <View style={styles.container}>
                     <Text style={styles.txt} >ccccccc</Text>
+                    <ScrollView>
+                        {this.state.photos.map((p, i) => {
+                        return (
+                            <Image
+                            key={i}
+                            style={{
+                                width: 300,
+                                height: 100,
+                            }}
+                            source={{ uri: p.node.image.uri }}
+                            />
+                        );
+                        })}
+                    </ScrollView>
                 </View>
                 {/* <TabBar navigation={this.props.navigation} active='discover'/> */}
                 {/* 此处有坑， 引用子组件，子组件里面的navigation的指向有变动，需要将react里面的navigation 传递给子组件 */}
