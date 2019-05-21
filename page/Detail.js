@@ -1,71 +1,88 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, CameraRoll, ScrollView, Image } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { RNCamera } from 'react-native-camera';
 
+
+const PendingView = () => (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: 'lightgreen',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Text>Waiting</Text>
+    </View>
+);
 class DetailsScreen extends React.Component {
     static navigationOptions = {
         title: '发现',
-        headerTitle: <View />,
-        headerRight: (
-            <Button
-            onPress={() => alert('This is a button!')}
-            title="Info"
-            color="#fff"
-            />
-        ),
     }
     constructor(props) {
         super(props)
         this.state = {
             photos: []
         }
-        this.onButtonPress = this.onButtonPress.bind(this);
+        this.takePicture = this.takePicture.bind(this);
     }
-    onButtonPress () {
-        CameraRoll.getPhotos({
-            first: 20,
-            assetType: 'Photos',
-            })
-            .then(r => {
-                this.setState({ photos: r.edges });
-                // alert(r.edges)
-            })
-            .catch((err) => {
-                //Error Loading Images
-            });
-    }
-    _handleButtonPress = () => {
-    
+    takePicture = async function(camera) {
+        const options = { quality: 0.5, base64: true };
+        const data = await camera.takePictureAsync(options);
+        //  eslint-disable-next-line
+        alert(data.uri);
     };
+    
     render() {
         return (
             <View style={{flex: 1, paddingBottom: 20}}>
                 <View style={styles.DetailsScreenHeader}>
                     <Text style={styles.headerTxt}>发现</Text>
-                    <TouchableOpacity  onPress={this.onButtonPress}  activeOpacity={0.2} focusedOpacity={0.5}>
+                    <TouchableOpacity  onPress={this.takePicture}  activeOpacity={0.2} focusedOpacity={0.5}>
                         <View style={styles.addPhoto}>
                         <Text style={{color:'#ffffff'}}>+</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.container}>
-                    <Text style={styles.txt} >ccccccc</Text>
-                    <ScrollView>
-                        {this.state.photos.map((p, i) => {
-                        return (
-                            <Image
-                            key={i}
-                            style={{
-                                width: 300,
-                                height: 100,
+                    <View style={styles.container}>
+                        <RNCamera
+                            ref={ref => {
+                                this.camera = ref;
                             }}
-                            source={{ uri: p.node.image.uri }}
-                            />
-                        );
-                        })}
-                    </ScrollView>
+                            style={styles.preview}
+                            type={RNCamera.Constants.Type.front }
+                            flashMode={RNCamera.Constants.FlashMode.on}
+                            autoFocus={RNCamera.Constants.AutoFocus.off}
+                            androidCameraPermissionOptions={{
+                                title: 'Permission to use camera',
+                                message: 'We need your permission to use your camera',
+                                buttonPositive: 'Ok',
+                                buttonNegative: 'Cancel',
+                            }}
+                            androidRecordAudioPermissionOptions={{
+                                title: 'Permission to use audio recording',
+                                message: 'We need your permission to use your audio',
+                                buttonPositive: 'Ok',
+                                buttonNegative: 'Cancel',
+                            }}
+                            onGoogleVisionBarcodesDetected={({ barcodes }) => {
+                                console.log(barcodes);
+                            }}
+                        >
+                            {({ camera, status, recordAudioPermissionStatus }) => {
+                                if (status !== 'READY') return <PendingView />;
+                                return (
+                                <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+                                    <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
+                                    <Text style={{ fontSize: 14 }}> SNAP </Text>
+                                    </TouchableOpacity>
+                                </View>
+                                );
+                            }}
+                        </RNCamera>
+                    </View>
                 </View>
-                {/* <TabBar navigation={this.props.navigation} active='discover'/> */}
-                {/* 此处有坑， 引用子组件，子组件里面的navigation的指向有变动，需要将react里面的navigation 传递给子组件 */}
             </View>
         );
     }
@@ -111,7 +128,21 @@ const styles = StyleSheet.create({
         width:20,
         height: 20,
         backgroundColor:'#ddd'
-    }
+    },
+    preview: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+      },
+    capture: {
+        flex: 0,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: 15,
+        paddingHorizontal: 20,
+        alignSelf: 'center',
+        margin: 20,
+    },
   })
 
 export default DetailsScreen
