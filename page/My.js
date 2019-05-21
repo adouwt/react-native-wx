@@ -2,15 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 class MyScreen extends React.Component {
-    // static navigationOptions = {
-    //     title: '我',
-    // };
+    static navigationOptions = {
+        title: '我',
+    };
     render() {
         return (
             <View style={{flex: 1, paddingBottom: 20}}>
-                <View style={styles.DetailsScreenHeader}>
-                  <Text>我</Text>
-                </View>
                 <View style={styles.container}>
                     <Text style={styles.txt} >MyScreen</Text>
                 </View>

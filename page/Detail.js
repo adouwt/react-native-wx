@@ -1,20 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { RNCamera } from 'react-native-camera';
+import NavigationService from '../component/NavigationService';
 
-
-const PendingView = () => (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'lightgreen',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Text>Waiting</Text>
-    </View>
-);
 class DetailsScreen extends React.Component {
     static navigationOptions = {
         title: '发现',
@@ -26,8 +13,12 @@ class DetailsScreen extends React.Component {
         }
         this.takePicture = this.takePicture.bind(this);
     }
-    takePicture = async function() {
-        this.props.navigation.navigate('Camera')
+
+    takePicture =  function() {
+        alert('123')
+        // 不起作用
+        NavigationService.navigate('Camera', { userName: 'Lucy' });
+        // this.props.navigation.navigate('Home')
     };
     
     render() {
@@ -85,7 +76,8 @@ const styles = StyleSheet.create({
         alignItems:'center',
         width:20,
         height: 20,
-        backgroundColor:'#ddd'
+        backgroundColor:'#ddd',
+        marginTop: 30
     },
     preview: {
         flex: 1,

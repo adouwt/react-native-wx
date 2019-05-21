@@ -136,6 +136,4 @@ const styles = StyleSheet.create({
   })
 
 
-export default createAppContainer(createStackNavigator({
-    Camera: CameraComponent
-}))
+export default CameraComponent;

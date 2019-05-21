@@ -10,9 +10,6 @@ class UserListScreen extends React.Component {
       return (
         <View style={{ flex: 1, paddingBottom: 20}}>
             <View style={{ flex: 1}}>
-                <View style={styles.DetailsScreenHeader}>
-                  <Text>通讯录</Text>
-                </View>
                 <SectionList
                     style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 10}}
                     renderSectionHeader={({ section }) => (

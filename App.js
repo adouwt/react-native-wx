@@ -6,19 +6,63 @@ import MyScreen from './page/My'
 import CameraComponent from './component/camera'
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text } from 'react-native';
-import { createAppContainer, createBottomTabNavigator } from 'react-navigation'; // Version can be specified in package.json
+import { createAppContainer, createBottomTabNavigator, createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
-const AppNavigator = createBottomTabNavigator(
+
+const HomeNav = createStackNavigator({
+  Home: {
+    screen: HomeScreen,
+  },
+})
+const UserListNav = createStackNavigator({
+  UserList: {
+    screen: UserListScreen,
+  },
+})
+const DetailsNav = createStackNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-    },
-    UserList: {
-      screen: UserListScreen,
-    },
     Details: {
       screen: DetailsScreen,
+    }
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        let iconColor = `${focused ? 'tomato' : 'gray'}`;
+        let badgeCount = 3
+        return (
+          <View>
+            <Icon name="md-more" size={18} color={iconColor}></Icon>
+            { badgeCount > 0 && (
+              <View style={{
+                // If you're using react-native < 0.57 overflow outside of the parent
+                // will not work on Android, see https://git.io/fhLJ8
+                position: 'absolute',
+                right: -6,
+                top: -3,
+                backgroundColor: 'red',
+                borderRadius: 6,
+                width: 12,
+                height: 12,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>{badgeCount}</Text>
+              </View>
+            )}
+          </View>
+        )
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
     },
+  }
+)
+
+const MyNav = createStackNavigator(
+  {
     My: {
       screen: MyScreen,
     },
@@ -76,4 +120,10 @@ const AppNavigator = createBottomTabNavigator(
   }
 );
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(createBottomTabNavigator({
+    微信: HomeNav,
+    通讯录: UserListNav,
+    发现: DetailsNav,
+    我: MyNav,
+  }
+));

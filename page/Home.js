@@ -50,7 +50,6 @@ class HomeScreen extends React.Component {
 
     return(
       <View style={{flex: 1, paddingBottom: 10}}>
-        <View style={styles.DetailsScreenHeader}><Text>微信</Text></View>
         <FlatList
           style={{padding: 10}}
           data={this.state.dataSource}
