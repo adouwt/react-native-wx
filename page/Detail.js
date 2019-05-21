@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
 class DetailsScreen extends React.Component {
     static navigationOptions = {
@@ -12,12 +12,24 @@ class DetailsScreen extends React.Component {
             color="#fff"
             />
         ),
-    };
+    }
+    constructor(props) {
+        super(props)
+        this.onButtonPress = this.onButtonPress.bind(this);
+    }
+    onButtonPress () {
+        alert(44)
+    }
     render() {
         return (
             <View style={{flex: 1, paddingBottom: 20}}>
-                <View style={{paddingTop: 40,paddingLeft: 20,lineHeight:60, height: 60, textAlign: 'center', backgroundColor: '#00c1de', fontWeight: 'bold', fontSize: 30}}>
-                  <Text>发现</Text>
+                <View style={styles.DetailsScreenHeader}>
+                    <Text style={styles.headerTxt}>发现</Text>
+                    <TouchableOpacity  onPress={this.onButtonPress}  activeOpacity={0.2} focusedOpacity={0.5}>
+                        <View style={styles.addPhoto}>
+                        <Text style={{color:'#ffffff'}}>+</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.container}>
                     <Text style={styles.txt} >ccccccc</Text>
@@ -47,6 +59,29 @@ const styles = StyleSheet.create({
       marginRight: 15,
       marginTop: 15
     },
+    DetailsScreenHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems:'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+        lineHeight:60, 
+        height: 60, 
+        backgroundColor: '#00c1de', 
+        fontWeight: 'bold',
+        fontSize: 30,
+        position: 'relative'
+    },
+    headerTxt: {
+        width: 100,
+    },
+    addPhoto: {
+        justifyContent:'center',
+        alignItems:'center',
+        width:20,
+        height: 20,
+        backgroundColor:'#ddd'
+    }
   })
 
 export default DetailsScreen

@@ -1,6 +1,5 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, Button  } from 'react-native';
-import TabBar from '../component/tabBar'
 import { formateTime } from '../utils/formate-time.js'
 
 class HomeScreen extends React.Component {
@@ -50,7 +49,7 @@ class HomeScreen extends React.Component {
     }
 
     return(
-      <View style={{flex: 1, paddingBottom: 20}}>
+      <View style={{flex: 1, paddingBottom: 10}}>
         <View style={{paddingTop: 40,paddingLeft: 20,lineHeight:60, height: 60, textAlign: 'center', backgroundColor: '#00c1de', fontWeight: 'bold', fontSize: 30}}><Text>微信</Text></View>
         <FlatList
           style={{padding: 10}}
@@ -64,7 +63,7 @@ class HomeScreen extends React.Component {
                         <Text style={styles.name}>{item.name}</Text>
                         <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
                     </View>
-                    <Text style={styles.time}>{item.regsiterTime}</Text>
+                    <Text style={styles.time}>{item.created_at}</Text>
                 </View>
               </View>
           }

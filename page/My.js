@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import TabBar from '../component/tabBar'
 
 class MyScreen extends React.Component {
     // static navigationOptions = {
