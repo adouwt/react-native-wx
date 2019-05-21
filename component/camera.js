@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-
+import { createStackNavigator, createAppContainer } from 'react-navigation'; // Version can be specified in package.json
 
 const PendingView = () => (
     <View
@@ -135,4 +135,7 @@ const styles = StyleSheet.create({
     },
   })
 
-export default CameraComponent
+
+export default createAppContainer(createStackNavigator({
+    Camera: CameraComponent
+}))
