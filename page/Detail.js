@@ -7,7 +7,8 @@ class DetailsScreen extends React.Component {
         headerTitle: <Text>发现</Text>,
         headerRight: (
           <Button
-            onPress={() => {alert(123456)}}
+            onPress={this.takePicture}
+            // 无法调用
             title="+"
             color="#333"
             fontSize='14'
@@ -23,16 +24,20 @@ class DetailsScreen extends React.Component {
     }
 
     takePicture =  function() {
-        alert('123')
-        // 不起作用
-        NavigationService.navigate('Camera', { userName: 'Lucy' });
-        // this.props.navigation.navigate('Home')
+        alert(1)
+        this.props.navigation.navigate('Camera')
     };
     
     render() {
         return (
             <View style={{flex: 1, padding: 20}}>
                 <Text>发现你的美</Text>
+                <Button
+                    onPress={this.takePicture}
+                    title="+"
+                    color="#333"
+                    fontSize='14'
+                />
             </View>
         );
     }

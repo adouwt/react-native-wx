@@ -19,10 +19,15 @@ const UserListNav = createStackNavigator({
     screen: UserListScreen,
   },
 })
+
+// 二级页面写进一级页面中
 const DetailsNav = createStackNavigator(
   {
     Details: {
       screen: DetailsScreen,
+    },
+    Camera: {
+      screen: CameraComponent
     }
   },
 )
