@@ -54,16 +54,16 @@ export default createAppContainer(createBottomTabNavigator(
         let iconName;
         let badgeCount = 3
         switch(routeName) {
-          case 'Home': 
-            iconName = 'ios-options';
+          case '微信':
+            iconName = 'logo-twitter';
             break;
-          case 'UserList': 
+          case '通讯录':
             iconName = 'md-arrow-back';
             break;
-          case 'Details': 
+          case '发现':
             iconName = 'md-more';
             break;
-          case 'My': 
+          case '我':
             iconName = 'md-settings';
             break;
         }

@@ -6,9 +6,9 @@ class HomeScreen extends React.Component {
   static navigationOptions = {
     title: '微信',
     headerStyle: {
-      backgroundColor: '#f4511e',
+      backgroundColor: '#fff',
     },
-    headerTintColor: '#fff',
+    headerTintColor: '#333',
     headerTitleStyle: {
       fontWeight: 'bold',
     },

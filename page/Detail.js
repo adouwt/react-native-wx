@@ -3,18 +3,27 @@ import { View, Text, Button, StyleSheet, TouchableOpacity, Image } from 'react-n
 import NavigationService from '../component/NavigationService';
 
 class DetailsScreen extends React.Component {
-    static navigationOptions = {
-        headerTitle: <Text>发现</Text>,
-        headerRight: (
-          <Button
-            onPress={this.takePicture}
-            // 无法调用
-            title="+"
-            color="#333"
-            fontSize='14'
-          />
-        ),
-      };
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: '发现',
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTintColor: '#333',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerRight: (
+            <Button
+              onPress={navigation.getParam('takePicture')}
+              title="+"
+              color="#333"
+              marginRight="20"
+            />
+          ),
+        };
+    }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -23,8 +32,16 @@ class DetailsScreen extends React.Component {
         this.takePicture = this.takePicture.bind(this);
     }
 
-    takePicture =  function() {
-        alert(1)
+    componentDidMount() {
+        this.props.navigation.setParams({ takePicture: this._takePicture });
+    }
+    
+    _takePicture = () => {
+        this.props.navigation.navigate('Camera')
+    };
+
+    takePicture =  () => {
+        alert(4)
         this.props.navigation.navigate('Camera')
     };
     
