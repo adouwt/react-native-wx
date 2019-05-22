@@ -4,7 +4,6 @@ import { formateTime } from '../utils/formate-time.js'
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: '微信',
     headerStyle: {
       backgroundColor: '#fff',
     },

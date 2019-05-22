@@ -6,12 +6,16 @@ import MyScreen from './page/My'
 import CameraComponent from './component/camera'
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text } from 'react-native';
-import { createAppContainer, createBottomTabNavigator, createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
+import { createAppContainer, createBottomTabNavigator, createStackNavigator, createDrawerNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 
 const HomeNav = createStackNavigator({
   Home: {
     screen: HomeScreen,
+    navigationOptions:{
+      headerTitle:'微信',
+      headerBackTitle:null,
+    }
   },
 })
 const UserListNav = createStackNavigator({
@@ -26,9 +30,6 @@ const DetailsNav = createStackNavigator(
     Details: {
       screen: DetailsScreen,
     },
-    Camera: {
-      screen: CameraComponent
-    }
   },
   {
   }
@@ -36,9 +37,8 @@ const DetailsNav = createStackNavigator(
 
 const MyNav = createStackNavigator(
   {
-    My: {
-      screen: MyScreen,
-    },
+    My: MyScreen,
+    Camera: CameraComponent
   },
 );
 
@@ -88,7 +88,7 @@ export default createAppContainer(createBottomTabNavigator(
                 justifyContent: 'center',
                 alignItems: 'center'
               }}>
-                <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>{badgeCount}</Text>
+                <Text style={{ color: '#999', fontSize: 10, fontWeight: 'bold' }}>{badgeCount}</Text>
               </View>
             )}
           </View>
@@ -98,7 +98,8 @@ export default createAppContainer(createBottomTabNavigator(
     tabBarOptions: {
       activeTintColor: '#00c1de',
       inactiveTintColor: 'gray',
-      showIcon: true
     },
-  }
+    swipeEnabled:true,
+    animationEnabled:true,
+  },
 ));
