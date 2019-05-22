@@ -31,8 +31,6 @@ const DetailsNav = createStackNavigator(
     }
   },
   {
-    mode: 'modal',
-    headerMode: 'none',
   }
 )
 
@@ -71,7 +69,7 @@ export default createAppContainer(createBottomTabNavigator(
             iconName = 'md-settings';
             break;
         }
-        iconColor = `${focused ? 'tomato' : 'gray'}`;
+        iconColor = `${focused ? '#00c1de' : 'gray'}`;
 
         return (
           <View>

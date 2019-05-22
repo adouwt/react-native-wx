@@ -19,28 +19,43 @@ class CameraComponent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            photos: []
+            cameraType: RNCamera.Constants.Type.back 
         }
         this.takePicture = this.takePicture.bind(this);
+        this.swtichCamera = this.swtichCamera.bind(this);
+        // alert(RNCamera.Constants.Type.back)
     }
-    takePicture = async function(camera) {
+    takePicture = async (camera) => {
         const options = { quality: 0.5, base64: true };
         const data = await camera.takePictureAsync(options);
-        //  eslint-disable-next-line
         alert(data.uri);
     };
+
+    swtichCamera = () => {
+        if(this.state.cameraType === RNCamera.Constants.Type.front) {
+            this.setState({
+                cameraType: RNCamera.Constants.Type.back
+            })
+            alert(this.state.cameraType)
+        } else {
+            this.setState({
+                cameraType: RNCamera.Constants.Type.front
+            })
+            alert(this.state.cameraType)
+        }
+    }
     
     render() {
         return (
             <View style={{flex: 1, paddingBottom: 20}}>
                 <View style={styles.container}>
-                    <View>
+                    <View style={styles.container}>
                         <RNCamera
                             ref={ref => {
                                 this.camera = ref;
                             }}
                             style={styles.preview}
-                            type={RNCamera.Constants.Type.front }
+                            type={ this.state.cameraType}
                             flashMode={RNCamera.Constants.FlashMode.on}
                             autoFocus={RNCamera.Constants.AutoFocus.off}
                             androidCameraPermissionOptions={{
@@ -64,7 +79,10 @@ class CameraComponent extends React.Component {
                                 return (
                                 <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
                                     <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                                    <Text style={{ fontSize: 14 }}> SNAP </Text>
+                                        <Text style={{ fontSize: 14 }}> SNAP </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={this.swtichCamera} style={styles.capture}>
+                                        <Text style={{ fontSize: 14 }}> swtich </Text>
                                     </TouchableOpacity>
                                 </View>
                                 );
