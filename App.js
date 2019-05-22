@@ -30,6 +30,10 @@ const DetailsNav = createStackNavigator(
       screen: CameraComponent
     }
   },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
 )
 
 const MyNav = createStackNavigator(

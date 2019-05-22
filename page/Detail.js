@@ -13,14 +13,6 @@ class DetailsScreen extends React.Component {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-          headerRight: (
-            <Button
-              onPress={navigation.getParam('takePicture')}
-              title="+"
-              color="#333"
-              marginRight="20"
-            />
-          ),
         };
     }
 
@@ -31,20 +23,9 @@ class DetailsScreen extends React.Component {
         }
         this.takePicture = this.takePicture.bind(this);
     }
-
-    componentDidMount() {
-        this.props.navigation.setParams({ takePicture: this._takePicture });
+    takePicture = () => {
+      alert(6)
     }
-    
-    _takePicture = () => {
-        this.props.navigation.navigate('Camera')
-    };
-
-    takePicture =  () => {
-        alert(4)
-        this.props.navigation.navigate('Camera')
-    };
-    
     render() {
         return (
             <View style={{flex: 1, padding: 20}}>

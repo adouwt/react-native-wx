@@ -1,10 +1,48 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 class MyScreen extends React.Component {
-    static navigationOptions = {
-        title: '我',
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: '发现',
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTintColor: '#333',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerRight: (
+            <Button
+              onPress={navigation.getParam('takePicture')}
+              title="+"
+              color="#333"
+              marginRight="20"
+            />
+          ),
+        };
+    }
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            photos: []
+        }
+        this.takePicture = this.takePicture.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.navigation.setParams({ takePicture: this._takePicture });
+    }
+    
+    _takePicture = () => {
+        this.props.navigation.navigate('Camera')
     };
+    
+    takePicture = () => {
+        this.props.navigation.navigate('Camera')
+    };
+
     render() {
         return (
             <View style={{flex: 1, paddingBottom: 20}}>
