@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, Image, FlatList, RefreshControl } from 'react-native';
 import NavigationService from '../component/NavigationService';
 import fetchRequest from '../utils/fetch'
 class DetailsScreen extends React.Component {
@@ -19,27 +19,77 @@ class DetailsScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          dataSource: []
+          dataSource: [],
+          refreshing: false,
+          isLoreMoreing: 'LoreMoreing',
+          count: 1,
+          maxSize: 1
         }
-        this.takePicture = this.takePicture.bind(this);
     }
 
     componentDidMount(){
       fetchRequest(
         '/getUsersFromPage', 
         'POST', 
-        {"page":1,"skip":true}
+        {"page": this.state.count, "skip":false}
       )
       .then(res => {
-        // alert(JSON.stringify(res))
         this.setState({
-          dataSource: res.users
+          dataSource: res.users,
+          count: this.state.count,
+          maxSize: res.maxSize
         })
+        
       })
     }
   
-    takePicture = () => {
-      alert(6)
+    LoreMore = ()=> {
+      if(this.state.count< this.state.maxSize) {
+        this.Refresh()
+      }
+    }
+    
+    Refresh = function () {
+      if(this.state.count >= this.state.maxSize) {
+        return
+      }
+      this.setState({
+          refreshing: true,
+      });
+      setTimeout(() => {
+          if(this.state.count< this.state.maxSize) {
+            this.setState({
+              count: this.state.count + 1,
+            })
+          }
+          fetchRequest(
+            '/getUsersFromPage', 
+            'POST', 
+            {"page":this.state.count, "skip":false}
+          )
+          .then(res => {
+            // alert(JSON.stringify(res))
+            this.setState({
+              dataSource: res.users,
+              refreshing: false
+            })
+            if (this.state.count === res.maxSize) {
+              this.setState({
+                refreshing: false
+              })
+            }
+          })
+          this.isLoreMore = false;
+      }, 1000);
+    }
+
+    renderFooter =() => {
+      return(
+        <View>
+          <Text>Loading</Text>
+          <Text>到底了</Text>
+        </View>
+      )
     }
 
     render() {
@@ -47,24 +97,41 @@ class DetailsScreen extends React.Component {
             <View style={{flex: 1, padding: 20}}>
                 <View style={{flex: 1}}>
                   <FlatList
-                    style={{padding: -10}}
-                    data={this.state.dataSource}
-                    renderItem= {
-                      ({item}) => 
-                        <View style={styles.container}>
-                          <Image  style={styles.image} source={{uri: item.avatar_url, width: 44, height: 44}}  />
-                          <View style={styles.txtwarpper}>
-                              <View style={styles.txt}>
-                                  <Text style={styles.name}>{item.name}</Text>
-                                  <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
-                              </View>
-                              <Text style={styles.time}>{item.created_at}</Text>
+                      showsVerticalScrollIndicator={false}//是否显示垂直滚动条
+                      showsHorizontalScrollIndicator={false}//是否显示水平滚动条
+                      numColumns={1}//每行显示1个
+                      // ListHeaderComponent={this.renderHeader}//头部
+                      ListFooterComponent={this.renderFooter}//尾巴
+                      renderItem= {
+                        ({item}) => 
+                          <View style={styles.container}>
+                            <Image  style={styles.image} source={{uri: item.avatar_url, width: 44, height: 44}}  />
+                            <View style={styles.txtwarpper}>
+                                <View style={styles.txt}>
+                                    <Text style={styles.name}>{item.name}</Text>
+                                    <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
+                                </View>
+                                <Text style={styles.time}>{item.created_at}</Text>
+                            </View>
                           </View>
-                        </View>
-                    }
-                    keyExtractor={(item, index) => item._id}
+                      }
+                      // ItemSeparatorComponent={this.renderSeparator}//每行底部---一般写下划线
+                      enableEmptySections={true}//数据可以为空
+                      keyExtractor={(item, index)=>item._id}
+                      onEndReachedThreshold={0.1}//执行上啦的时候10%执行
+                      onEndReached={this.LoreMore}
+                      data={this.state.dataSource}
+                      // scrollToEnd={alert('scrollToEnd')}
+                      refreshing={this.state.refreshing}
+                      onRefresh={this.Refresh.bind(this)}
+                      // refreshControl={
+                      //     <RefreshControl
+                      //         refreshing={this.state.refreshing}
+                      //         onRefresh={this.Refresh}
+                      //         title="Loading..."/>
+                      // }
                   />
-                  {/* <TabBar navigation={this.props.navigation} active='Home'/> */}
+                  
                 </View>
             </View>
         );
@@ -81,19 +148,6 @@ const styles = StyleSheet.create({
       marginLeft: 15,
       marginRight: 15,
       marginTop: 15
-    },
-    DetailsScreenHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems:'center',
-      paddingLeft: 20,
-      paddingRight: 20,
-      lineHeight:60, 
-      height: 60, 
-      backgroundColor: '#00c1de', 
-      fontWeight: 'bold',
-      fontSize: 30,
-      position: 'relative'
     },
     image: {
       flex: 1,
