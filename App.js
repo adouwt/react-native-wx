@@ -75,7 +75,7 @@ export default createAppContainer(createBottomTabNavigator(
         return (
           <View>
             <Icon name={iconName} size={18} color={iconColor}></Icon>
-            { routeName === 'Details' && badgeCount > 0 && (
+            { routeName === '发现' && badgeCount > 0 && (
               <View style={{
                 // If you're using react-native < 0.57 overflow outside of the parent
                 // will not work on Android, see https://git.io/fhLJ8
@@ -87,7 +87,8 @@ export default createAppContainer(createBottomTabNavigator(
                 width: 12,
                 height: 12,
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                color: '#fff'
               }}>
                 <Text style={{ color: '#999', fontSize: 10, fontWeight: 'bold' }}>{badgeCount}</Text>
               </View>

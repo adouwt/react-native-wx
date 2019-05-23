@@ -80,7 +80,7 @@ class DetailsScreen extends React.Component {
             }
           })
           this.isLoreMore = false;
-      }, 1000);
+      }, 1500);
     }
 
     renderFooter =() => {
