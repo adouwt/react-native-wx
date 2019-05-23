@@ -36,12 +36,10 @@ class CameraComponent extends React.Component {
             this.setState({
                 cameraType: RNCamera.Constants.Type.back
             })
-            alert(this.state.cameraType)
         } else {
             this.setState({
                 cameraType: RNCamera.Constants.Type.front
             })
-            alert(this.state.cameraType)
         }
     }
     

@@ -5,9 +5,11 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
+    "and": "react-native run-android",
+    "ios": "react-native run-ios",
     "runtime": "yarn add @babel/runtime@7.0.0",
-    "android": "react-native run-android",
-    "ios": "react-native run-ios"
+    "clean": "cd android && ./gradlew clean",
+    "rm": "rm -rf node_modules"
   },
   "dependencies": {
     "@expo/vector-icons": "6.2.2",
