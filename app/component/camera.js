@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, Image, CameraRoll, TouchableNativeFeedback } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 const PendingView = () => (
@@ -19,7 +19,8 @@ class CameraComponent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            cameraType: RNCamera.Constants.Type.back 
+            cameraType: RNCamera.Constants.Type.back,
+            currentUri: ''
         }
         this.takePicture = this.takePicture.bind(this);
         this.swtichCamera = this.swtichCamera.bind(this);
@@ -28,6 +29,9 @@ class CameraComponent extends React.Component {
     takePicture = async (camera) => {
         const options = { quality: 0.5, base64: true };
         const data = await camera.takePictureAsync(options);
+        this.setState({
+            currentUri: data.uri
+        })
         alert(data.uri);
     };
 
@@ -42,10 +46,14 @@ class CameraComponent extends React.Component {
             })
         }
     }
+
+    lookAlbum = () => {
+        alert('查看相册')
+    }
     
     render() {
         return (
-            <View style={{flex: 1, paddingBottom: 20}}>
+            <View style={{flex: 1}}>
                 <View style={styles.container}>
                     <View style={styles.container}>
                         <RNCamera
@@ -75,13 +83,21 @@ class CameraComponent extends React.Component {
                             {({ camera, status, recordAudioPermissionStatus }) => {
                                 if (status !== 'READY') return <PendingView />;
                                 return (
-                                <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around',marginBottom: 20 }}>
                                     <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                                        <Text style={{ fontSize: 14 }}> SNAP </Text>
+                                        <Text style={{ fontSize: 14 }}> 拍照 </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={this.swtichCamera} style={styles.capture}>
-                                        <Text style={{ fontSize: 14 }}> swtich </Text>
+                                        <Text style={{ fontSize: 14 }}> 切换 </Text>
                                     </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={this.lookAlbum} style={styles.imgPreview}>
+                                        <Image
+                                            style={styles.imgPreview}
+                                            source={{uri: this.state.currentUri || 'https://yyb.gtimg.com/aiplat/page/product/visionimgidy/img/demo6-16a47e5d31.jpg?', isStatic: true}}
+                                        />
+                                    </TouchableOpacity>
+                                    
                                 </View>
                                 );
                             }}
@@ -101,18 +117,28 @@ const styles = StyleSheet.create({
     },
     preview: {
         flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
     },
     capture: {
         flex: 0,
         backgroundColor: '#fff',
         borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
+        padding: 10,
         alignSelf: 'center',
-        margin: 20,
     },
+    imgPreview: {
+        flex: 0,
+        height: 40,
+        width: 40,
+        borderRadius: 5,
+        alignSelf: 'center',
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+    }
   })
 
 

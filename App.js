@@ -1,9 +1,9 @@
 import React from 'react';
-import HomeScreen  from './page/Home'
-import DetailsScreen from './page/Detail'
-import UserListScreen from './page/UserList'
-import MyScreen from './page/My'
-import CameraComponent from './component/camera'
+import HomeScreen  from './app/page/Home'
+import DetailsScreen from './app/page/Detail'
+import UserListScreen from './app/page/UserList'
+import MyScreen from './app/page/My'
+import CameraComponent from './app/component/camera'
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text } from 'react-native';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator, createDrawerNavigator } from 'react-navigation'; // Version can be specified in package.json
@@ -43,6 +43,7 @@ const MyNav = createStackNavigator(
 );
 
 export default createAppContainer(createBottomTabNavigator(
+  // createBottomTabNavigator 两个参数，一个页面路由，一个是路由配置
   {
     微信: HomeNav,
     通讯录: UserListNav,
@@ -99,7 +100,8 @@ export default createAppContainer(createBottomTabNavigator(
       activeTintColor: '#00c1de',
       inactiveTintColor: 'gray',
     },
-    swipeEnabled:true,
-    animationEnabled:true,
-  },
+    navigationOptions: {
+      tabBarVisible: false
+    }
+  }
 ));

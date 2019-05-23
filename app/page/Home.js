@@ -48,9 +48,9 @@ class HomeScreen extends React.Component {
     }
 
     return(
-      <View style={{flex: 1, paddingBottom: 10}}>
+      <View style={{flex: 1}}>
         <FlatList
-          style={{padding: 10}}
+          style={{padding: -10}}
           data={this.state.dataSource}
           renderItem= {
             ({item}) => 

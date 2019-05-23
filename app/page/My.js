@@ -13,12 +13,14 @@ class MyScreen extends React.Component {
             fontWeight: 'bold',
           },
           headerRight: (
-            <Button
-              onPress={navigation.getParam('takePicture')}
-              title="+"
-              color="#333"
-              marginRight="20"
-            />
+            <View style={{marginRight: 20}}>
+              <Button
+                onPress={navigation.getParam('takePicture')}
+                title="+"
+                color="#333"
+                marginRight="20"
+              />
+            </View>
           ),
         };
     }

@@ -8,7 +8,7 @@
     "and": "react-native run-android",
     "ios": "react-native run-ios",
     "runtime": "yarn add @babel/runtime@7.0.0",
-    "clean": "cd android && ./gradlew clean",
+    "clean": "cd android && gradlew clean",
     "rm": "rm -rf node_modules"
   },
   "dependencies": {
