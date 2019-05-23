@@ -84,12 +84,20 @@ class DetailsScreen extends React.Component {
     }
 
     renderFooter =() => {
-      return(
-        <View>
-          <Text>Loading</Text>
-          <Text>到底了</Text>
-        </View>
-      )
+      if(this.state.refreshing) {
+        return(
+          <View >
+            <Text style={styles.footer}>Loading...</Text>
+          </View>
+        )
+      } else {
+        return(
+          <View >
+            <Text style={styles.footer}>-到底了-</Text>
+          </View>
+        )
+      }
+      
     }
 
     render() {
@@ -184,6 +192,10 @@ const styles = StyleSheet.create({
       color: '#ddd',
       fontSize: 12,
       textAlign: 'right',
+    },
+    footer: {
+      textAlign: 'center',
+      color: '#999'
     }
 })
 
