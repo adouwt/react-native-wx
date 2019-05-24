@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image, FlatList, RefreshControl } from 'react-native';
 import fetchRequest from '../utils/fetch'
+import { formateTime } from '../utils/formate-time.js'
+
 class DetailsScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
@@ -118,7 +120,7 @@ class DetailsScreen extends React.Component {
                                     <Text style={styles.name}>{item.name}</Text>
                                     <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
                                 </View>
-                                <Text style={styles.time}>{item.created_at}</Text>
+                                <Text style={styles.time}>{formateTime(item.created_at)}</Text>
                             </View>
                           </View>
                       }

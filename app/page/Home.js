@@ -52,7 +52,7 @@ class HomeScreen extends React.Component {
     }
 
     return(
-      <View style={{flex: 1}}>
+      <View style={{flex: 1,padding: 10}}>
         <FlatList
           style={{padding: -10}}
           data={this.state.dataSource}
@@ -66,7 +66,7 @@ class HomeScreen extends React.Component {
                           <Text style={styles.name}>{item.name}</Text>
                           <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
                       </View>
-                      <Text style={styles.time}>{item.created_at}</Text>
+                      <Text style={styles.time}>{formateTime(item.created_at)}</Text>
                   </View>
                 </View>
               </TouchableOpacity>

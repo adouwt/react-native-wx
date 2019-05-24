@@ -32,11 +32,8 @@ class ChatScreen extends React.Component {
             name: name,
             roomId: roomId
         })
-        alert(roomId)
         fetchRequest('/post/oneUser', 'POST', {id: roomId})
         .then(res => {
-            alert(JSON.stringify(res))
-            console.log(res)
             this.setState({
                 userMsg: res
             })
