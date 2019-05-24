@@ -1,4 +1,5 @@
 let common_url = 'http://vue.wtodd.wang/nodejsapi/post';  //服务器基本地址
+// let common_url = 'http://localhost:4000';  //服务器基本地址
 let token = '';   
 /**
  * @param {string} url 接口地址

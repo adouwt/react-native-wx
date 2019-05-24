@@ -30,19 +30,16 @@ const DetailsNav = createStackNavigator(
     Details: {
       screen: DetailsScreen,
     },
-  },
-  {
   }
 )
 
 const MyNav = createStackNavigator(
   {
     My: MyScreen,
-    Camera: CameraComponent
-  },
+  }
 );
 
-export default createAppContainer(createBottomTabNavigator(
+let BottomNav = createBottomTabNavigator(
   // createBottomTabNavigator 两个参数，一个页面路由，一个是路由配置
   {
     微信: HomeNav,
@@ -105,4 +102,22 @@ export default createAppContainer(createBottomTabNavigator(
       tabBarVisible: false
     }
   }
-));
+);
+
+let RootNav = createStackNavigator({
+  BottomNav: {
+    screen: BottomNav,
+    navigationOptions: ({ navigation, screenProps }) => {
+      return {
+        header: null,
+      };
+    }
+  },
+  Camera: {
+    screen: CameraComponent
+  }
+})
+
+
+
+export default createAppContainer(RootNav);
