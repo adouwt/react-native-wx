@@ -1,9 +1,10 @@
 import React from 'react';
 import HomeScreen  from './app/page/Home'
-import DetailsScreen from './app/page/Detail'
+import DiscoverScreen from './app/page/Discover'
 import UserListScreen from './app/page/UserList'
 import MyScreen from './app/page/My'
 import CameraComponent from './app/component/camera'
+import ChatScreen from './app/page/Chat'
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text } from 'react-native';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator, createDrawerNavigator } from 'react-navigation'; // Version can be specified in package.json
@@ -25,10 +26,10 @@ const UserListNav = createStackNavigator({
 })
 
 // 二级页面写进一级页面中
-const DetailsNav = createStackNavigator(
+const DiscoverNav = createStackNavigator(
   {
-    Details: {
-      screen: DetailsScreen,
+    Discover: {
+      screen: DiscoverScreen,
     },
   }
 )
@@ -44,7 +45,7 @@ let BottomNav = createBottomTabNavigator(
   {
     微信: HomeNav,
     通讯录: UserListNav,
-    发现: DetailsNav,
+    发现: DiscoverNav,
     我: MyNav,
   },
   {
@@ -115,6 +116,9 @@ let RootNav = createStackNavigator({
   },
   Camera: {
     screen: CameraComponent
+  },
+  Chat: {
+    screen: ChatScreen
   }
 })
 

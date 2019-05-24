@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image, FlatList, RefreshControl } from 'react-native';
-import NavigationService from '../component/NavigationService';
 import fetchRequest from '../utils/fetch'
 class DetailsScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -29,7 +28,7 @@ class DetailsScreen extends React.Component {
 
     componentDidMount(){
       fetchRequest(
-        '/getUsersFromPage', 
+        '/post/getUsersFromPage',
         'POST', 
         {"page": this.state.count, "skip":false}
       )
@@ -44,7 +43,7 @@ class DetailsScreen extends React.Component {
     }
   
     LoreMore = ()=> {
-      if(this.state.count< this.state.maxSize) {
+      if(this.state.count < this.state.maxSize) {
         this.Refresh()
       }
     }
@@ -63,7 +62,7 @@ class DetailsScreen extends React.Component {
             })
           }
           fetchRequest(
-            '/getUsersFromPage', 
+            '/post/getUsersFromPage', 
             'POST', 
             {"page":this.state.count, "skip":false}
           )

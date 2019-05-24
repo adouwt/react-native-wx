@@ -1,6 +1,8 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, Button  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, TouchableOpacity  } from 'react-native';
 import { formateTime } from '../utils/formate-time.js'
+import fetchRequest from '../utils/fetch'
+
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -13,31 +15,33 @@ class HomeScreen extends React.Component {
     },
   };
     constructor(props){
-        super(props);
-        this.state ={ isLoading: true}
+      super(props);
+      this.state ={ isLoading: true}
+      this.state= {
+        dataSource: []
+      }
+      this.jumpChat = this.jumpChat.bind(this)
     }
 
   componentDidMount(){
-    // return fetch('http://18.10.1.115:4000/get/alluser')
-    return fetch('https://api.scampus.cn/get/alluser')
-      .then((response) => response.json())
-      .then((responseJson) => {
+    fetchRequest(
+      '/post/getUsersFromPage', 
+      'POST', 
+      {"page": 4, "skip":false}
+    )
+    .then(res => {
         this.setState({
-          isLoading: false,
-          dataSource: responseJson.users,
-        }, function(){
+          dataSource: res.users
+        })
+    })
+  }
 
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
+  jumpChat = (name) => {
+    this.props.navigation.navigate('Chat', {roomId: 'sds', name: name})
   }
 
 
-
-  render(){
+  render () {
 
     if(this.state.isLoading){
       return(
@@ -54,16 +58,18 @@ class HomeScreen extends React.Component {
           data={this.state.dataSource}
           renderItem= {
             ({item}) => 
-              <View style={styles.container}>
-                <Image  style={styles.image} source={{uri: item.avatar_url, width: 44, height: 44}}  />
-                <View style={styles.txtwarpper}>
-                    <View style={styles.txt}>
-                        <Text style={styles.name}>{item.name}</Text>
-                        <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
-                    </View>
-                    <Text style={styles.time}>{item.created_at}</Text>
+              <TouchableOpacity onPress={() => {this.props.navigation.navigate('Chat', {roomId: item._id, name: item.name})}}>
+                <View style={styles.container}>
+                  <Image  style={styles.image} source={{uri: item.avatar_url, width: 44, height: 44}}  />
+                  <View style={styles.txtwarpper}>
+                      <View style={styles.txt}>
+                          <Text style={styles.name}>{item.name}</Text>
+                          <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
+                      </View>
+                      <Text style={styles.time}>{item.created_at}</Text>
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
           }
           keyExtractor={(item, index) => item._id}
         />
