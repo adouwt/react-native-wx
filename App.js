@@ -44,9 +44,9 @@ const MyNav = createStackNavigator(
 let BottomNav = createBottomTabNavigator(
   // createBottomTabNavigator 两个参数，一个页面路由，一个是路由配置
   {
-    发现: DiscoverNav,
     微信: HomeNav,
     通讯录: UserListNav,
+    发现: DiscoverNav,
     我: MyNav,
   },
   {
@@ -69,7 +69,7 @@ let BottomNav = createBottomTabNavigator(
             iconName = 'ios-person';
             break;
         }
-        iconColor = `${focused ? '#00c1de' : 'gray'}`;
+        iconColor = `${focused ? '#1AAD19' : '#4D4D4D'}`;
 
         return (
           <View>
@@ -89,7 +89,7 @@ let BottomNav = createBottomTabNavigator(
                 alignItems: 'center',
                 color: '#fff'
               }}>
-                <Text style={{ color: '#999', fontSize: 10, fontWeight: 'bold' }}>{badgeCount}</Text>
+                <Text style={{ color: '#fff', fontSize: 10, fontWeight: 'bold' }}>{badgeCount}</Text>
               </View>
             )}
           </View>
@@ -97,8 +97,8 @@ let BottomNav = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#00c1de',
-      inactiveTintColor: 'gray',
+      activeTintColor: '#1AAD19',
+      inactiveTintColor: '#4D4D4D',
     },
     navigationOptions: {
       tabBarVisible: false
