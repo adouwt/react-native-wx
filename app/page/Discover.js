@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity, Animated, Easing} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import { getLabelPrinter } from 'jest-matcher-utils';
 
@@ -32,7 +32,8 @@ class MyScreen extends React.Component {
         super(props)
         this.state = {
           isOn: false,
-          count: 1
+          animatedRightValue: new Animated.Value(-140),
+          animatedValue: new Animated.Value(0),
         }
     }
 
@@ -42,15 +43,34 @@ class MyScreen extends React.Component {
     
     toggleHandle = () => {
       this.modelComponent()
-      this.setState({ 
+      this.setState({
         isOn: !this.state.isOn
-      });
+      },
+      () => {
+        Animated.timing(
+          this.state.animatedRightValue,
+          { 
+            toValue: this.state.isOn ? 7 : -140,
+            // easing: Easing.ease,
+            duration: 100,
+          }
+        ).start()
+      }
+      );
     } 
 
     modelComponent = () => {
-      if(this.state.isOn) {
         return (
-          <View style={styles.model}>
+          <Animated.View style={{
+            position: 'absolute',
+            top: 10,
+            right: this.state.animatedRightValue,
+            width: 140,
+            height: 240,
+            backgroundColor: '#555',
+            borderRadius: 5,
+            zIndex:999,
+            }}>
             <Text style={styles.modelArrow}></Text>
             <View style={styles.modelContainer}>
               <View style={{height: 35, marginBottom: 10}}>
@@ -104,11 +124,9 @@ class MyScreen extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </Animated.View>
         ) 
-      } else {
-        return <View></View>
-      }
+        // return <Animated.View style={{width: 0}}></Animated.View>
     }
 
     toFriendCicle = () => {
