@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity, Image} from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
 class MyScreen extends React.Component {
@@ -15,12 +15,12 @@ class MyScreen extends React.Component {
             textAlign: 'left'
           },
           headerRight: (
-            <View style={{marginRight: 20}}>
+            <View style={{marginRight: 20, position: 'relative'}}>
               <TouchableOpacity
-                onPress={navigation.getParam('more')}
+                onPress={navigation.getParam('Toggle')}
                 marginRight="20"
               >
-                <Icon name="md-camera" size={18} color="#333"></Icon>
+                <Icon name="md-add-circle-outline" size={18} color="#333"></Icon>
               </TouchableOpacity>
             </View>
           ),
@@ -30,28 +30,81 @@ class MyScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            photos: []
+          isOn: false,
         }
     }
 
     componentDidMount() {
-      this.props.navigation.setParams({ more: this._more });
+      this.props.navigation.setParams({ Toggle: this.toggleHandle });
     }
     
-    _more = () => {
-      this.props.navigation.navigate('Camera')
-    };
-    
-    more = () => {
-      this.props.navigation.navigate('Camera')
-    };
+    toggleHandle = () => {
+      alert(12)
+    } 
+
     toFriendCicle = () => {
       this.props.navigation.navigate('FriendCircle')
     };
 
     render() {
         return (
-          <View style={{flex: 1, backgroundColor: '#eee'}}>
+          <View style={{flex: 1, backgroundColor: '#eee', position: 'relative'}}>
+            {/* 弹框 */}
+            <View style={styles.model}>
+                <Text style={styles.modelArrow}></Text>
+                <View style={styles.modelContainer}>
+                  <View style={{height: 35, marginBottom: 10}}>
+                      <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                        <View style={styles.modelContainerItem}> 
+                          <View style={{height: 30}}>
+                            <Icon name="md-chatboxes" size={18} color="#fff" ></Icon>
+                          </View>
+                          <View style={styles.txt}><Text style={{color: '#fff'}}>发起群聊</Text></View>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  <View style={{height: 35, marginBottom: 10}}>
+                    <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                      <View style={styles.modelContainerItem}> 
+                        <View style={{height: 30}}>
+                          <Icon name="md-person-add" size={20} color="#fff" ></Icon>
+                        </View>
+                        <View style={styles.txt}><Text style={{color: '#fff'}}>添加朋友</Text></View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{height: 35, marginBottom: 10}}>
+                    <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                      <View style={styles.modelContainerItem}> 
+                        <View style={{height: 30}}>
+                          <Icon name="ios-qr-scanner" size={18} color="#fff" ></Icon>
+                        </View>
+                        <View style={styles.txt}><Text style={{color: '#fff'}}>扫一扫</Text></View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{height: 35, marginBottom: 10}}>
+                    <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                      <View style={styles.modelContainerItem}> 
+                        <View style={{height: 30}}>
+                          <Icon name="ios-aperture" size={18} color="#fff" ></Icon>
+                        </View>
+                        <View style={styles.txt}><Text style={{color: '#fff'}}>收付款</Text></View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{height: 35, marginBottom: 10}}>
+                    <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                      <View style={styles.modelContainerItem}> 
+                        <View style={{height: 30}}>
+                          <Icon name="ios-mail" size={18} color="#fff" ></Icon>
+                        </View>
+                        <View style={styles.txt}><Text style={{color: '#fff'}}>帮助与反馈</Text></View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
             {/* 朋友圈 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
               <TouchableOpacity
@@ -228,6 +281,46 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd',
     borderBottomWidth: 1,
     borderStyle: 'solid',
+  },
+  model: {
+    position: 'absolute',
+    top: 10,
+    right: 7,
+    height: 240,
+    width: 140,
+    backgroundColor: '#555',
+    borderRadius: 5,
+    zIndex:999,
+  },
+  modelArrow: {
+    width: 20,
+    height: 20,
+    backgroundColor: '#555',
+    position:'absolute',
+    right: 10,
+    top: -5,
+    borderRadius: 5,
+    transform: [{rotate:'45deg'}],
+  },
+  modelContainer: {
+    flex: 1,
+    padding: 10,
+    paddingTop: 15
+  },
+  modelContainerItem: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  txt :{
+    marginLeft: 10,
+    marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomColor: '#444047',
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    color: '#fff',
+    height: 30,
+    width: 100,
   }
 })
 

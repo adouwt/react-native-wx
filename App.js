@@ -44,9 +44,9 @@ const MyNav = createStackNavigator(
 let BottomNav = createBottomTabNavigator(
   // createBottomTabNavigator 两个参数，一个页面路由，一个是路由配置
   {
+    发现: DiscoverNav,
     微信: HomeNav,
     通讯录: UserListNav,
-    发现: DiscoverNav,
     我: MyNav,
   },
   {
