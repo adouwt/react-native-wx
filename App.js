@@ -5,6 +5,7 @@ import UserListScreen from './app/page/UserList'
 import MyScreen from './app/page/My'
 import CameraComponent from './app/component/camera'
 import ChatScreen from './app/page/Chat'
+import FriendCircle from './app/page/friendCircle'
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text } from 'react-native';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator, createDrawerNavigator } from 'react-navigation'; // Version can be specified in package.json
@@ -119,6 +120,9 @@ let RootNav = createStackNavigator({
   },
   Chat: {
     screen: ChatScreen
+  },
+  FriendCircle: {
+    screen: FriendCircle
   }
 })
 

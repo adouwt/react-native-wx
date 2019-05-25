@@ -17,7 +17,7 @@ class MyScreen extends React.Component {
           headerRight: (
             <View style={{marginRight: 20}}>
               <TouchableOpacity
-                onPress={navigation.getParam('takePicture')}
+                onPress={navigation.getParam('more')}
                 marginRight="20"
               >
                 <Icon name="md-camera" size={18} color="#333"></Icon>
@@ -32,28 +32,30 @@ class MyScreen extends React.Component {
         this.state = {
             photos: []
         }
-        this.takePicture = this.takePicture.bind(this);
     }
 
     componentDidMount() {
-        this.props.navigation.setParams({ takePicture: this._takePicture });
+      this.props.navigation.setParams({ more: this._more });
     }
     
-    _takePicture = () => {
-        this.props.navigation.navigate('Camera')
+    _more = () => {
+      this.props.navigation.navigate('Camera')
     };
     
-    takePicture = () => {
-        this.props.navigation.navigate('Camera')
+    more = () => {
+      this.props.navigation.navigate('Camera')
+    };
+    toFriendCicle = () => {
+      this.props.navigation.navigate('FriendCircle')
     };
 
     render() {
         return (
           <View style={{flex: 1, backgroundColor: '#eee'}}>
             {/* 朋友圈 */}
-            <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
               <TouchableOpacity
-                onPress={this.props.navigation.getParam('takePicture')}
+                onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
               >
               <View style={styles.msgHeader}>
@@ -71,7 +73,7 @@ class MyScreen extends React.Component {
             {/* 收藏 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
-                onPress={this.props.navigation.getParam('takePicture')}
+                onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
               >
               <View style={styles.msgHeader}>
@@ -88,14 +90,14 @@ class MyScreen extends React.Component {
             {/* 摇一摇 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, }}>
               <TouchableOpacity
-                onPress={this.props.navigation.getParam('takePicture')}
+                onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
                   <Icon name="ios-images" size={18} color="#00c1de" ></Icon>
                 </View>
-                <View style={styles.itemWrapper}>
+                <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
                   <Text style={{fontSize: 16}} >摇一摇</Text>
                   <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
                 </View>
@@ -105,7 +107,7 @@ class MyScreen extends React.Component {
             {/* 看一看 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
-                onPress={this.props.navigation.getParam('takePicture')}
+                onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
               >
               <View style={styles.msgHeader}>
@@ -122,7 +124,7 @@ class MyScreen extends React.Component {
             {/* 搜一搜 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, }}>
               <TouchableOpacity
-                onPress={this.props.navigation.getParam('takePicture')}
+                onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
               >
               <View style={styles.msgHeader}>
@@ -140,7 +142,7 @@ class MyScreen extends React.Component {
             {/* 附近的人 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
-                onPress={this.props.navigation.getParam('takePicture')}
+                onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
               >
               <View style={styles.msgHeader}>
@@ -157,7 +159,7 @@ class MyScreen extends React.Component {
             {/* 购物 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
-                onPress={this.props.navigation.getParam('takePicture')}
+                onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
               >
               <View style={styles.msgHeader}>
@@ -174,7 +176,7 @@ class MyScreen extends React.Component {
             {/* 小游戏 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
               <TouchableOpacity
-                onPress={this.props.navigation.getParam('takePicture')}
+                onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
               >
               <View style={styles.msgHeader}>
@@ -192,7 +194,7 @@ class MyScreen extends React.Component {
             {/* 小程序 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
               <TouchableOpacity
-                onPress={this.props.navigation.getParam('takePicture')}
+                onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
               >
               <View style={styles.msgHeader}>

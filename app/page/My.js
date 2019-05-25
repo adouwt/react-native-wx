@@ -32,7 +32,6 @@ class MyScreen extends React.Component {
         this.state = {
             photos: []
         }
-        this.takePicture = this.takePicture.bind(this);
     }
 
     componentDidMount() {
@@ -76,7 +75,7 @@ class MyScreen extends React.Component {
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
-                  <Icon name="md-checkbox" size={18} color="orange" ></Icon>
+                  <Icon name="md-chatboxes" size={18} color="orange" ></Icon>
                 </View>
                 <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
                   <Text style={{fontSize: 16}} >支付</Text>
