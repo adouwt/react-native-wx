@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image, CameraRoll, TouchableNativeFeedback } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import Icon from "react-native-vector-icons/Ionicons";
 
 const PendingView = () => (
     <View
@@ -88,7 +89,7 @@ class CameraComponent extends React.Component {
                                         <Text style={{ fontSize: 14 }}> 拍照 </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={this.swtichCamera} style={styles.capture}>
-                                        <Text style={{ fontSize: 14 }}> 切换 </Text>
+                                        <Icon name="ios-reverse-camera" size={18} color="#333"></Icon>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity onPress={this.lookAlbum} style={styles.imgPreview}>

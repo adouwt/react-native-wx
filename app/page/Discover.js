@@ -1,203 +1,232 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, Image, FlatList, RefreshControl } from 'react-native';
-import fetchRequest from '../utils/fetch'
-import { formateTime } from '../utils/formate-time.js'
+import { View, Text, StyleSheet, Button, TouchableOpacity, Image} from 'react-native';
+import Icon from "react-native-vector-icons/Ionicons";
 
-class DetailsScreen extends React.Component {
+class MyScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
           title: '发现',
           headerStyle: {
-            backgroundColor: '#fff',
+            backgroundColor: '#eee',
           },
           headerTintColor: '#333',
           headerTitleStyle: {
             fontWeight: 'bold',
+            textAlign: 'left'
           },
+          headerRight: (
+            <View style={{marginRight: 20}}>
+              <TouchableOpacity
+                onPress={navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+                <Icon name="md-camera" size={18} color="#333"></Icon>
+              </TouchableOpacity>
+            </View>
+          ),
         };
     }
 
     constructor(props) {
         super(props)
         this.state = {
-          dataSource: [],
-          refreshing: false,
-          isLoreMoreing: 'LoreMoreing',
-          count: 1,
-          maxSize: 1
+            photos: []
         }
+        this.takePicture = this.takePicture.bind(this);
     }
 
-    componentDidMount(){
-      fetchRequest(
-        '/post/getUsersFromPage',
-        'POST', 
-        {"page": this.state.count, "skip":false}
-      )
-      .then(res => {
-        this.setState({
-          dataSource: res.users,
-          count: this.state.count,
-          maxSize: res.maxSize
-        })
-        
-      })
-    }
-  
-    LoreMore = ()=> {
-      if(this.state.count < this.state.maxSize) {
-        this.Refresh()
-      }
+    componentDidMount() {
+        this.props.navigation.setParams({ takePicture: this._takePicture });
     }
     
-    Refresh = function () {
-      if(this.state.count >= this.state.maxSize) {
-        return
-      }
-      this.setState({
-          refreshing: true,
-      });
-      setTimeout(() => {
-          if(this.state.count< this.state.maxSize) {
-            this.setState({
-              count: this.state.count + 1,
-            })
-          }
-          fetchRequest(
-            '/post/getUsersFromPage', 
-            'POST', 
-            {"page":this.state.count, "skip":false}
-          )
-          .then(res => {
-            // alert(JSON.stringify(res))
-            this.setState({
-              dataSource: res.users,
-              refreshing: false
-            })
-            if (this.state.count === res.maxSize) {
-              this.setState({
-                refreshing: false
-              })
-            }
-          })
-          this.isLoreMore = false;
-      }, 1500);
-    }
-
-    renderFooter =() => {
-      if(this.state.refreshing) {
-        return(
-          <View >
-            <Text style={styles.footer}>Loading...</Text>
-          </View>
-        )
-      } else {
-        return(
-          <View >
-            <Text style={styles.footer}>-到底了-</Text>
-          </View>
-        )
-      }
-      
-    }
+    _takePicture = () => {
+        this.props.navigation.navigate('Camera')
+    };
+    
+    takePicture = () => {
+        this.props.navigation.navigate('Camera')
+    };
 
     render() {
         return (
-            <View style={{flex: 1, padding: 20}}>
-                <View style={{flex: 1}}>
-                  <FlatList
-                      showsVerticalScrollIndicator={false}//是否显示垂直滚动条
-                      showsHorizontalScrollIndicator={false}//是否显示水平滚动条
-                      numColumns={1}//每行显示1个
-                      // ListHeaderComponent={this.renderHeader}//头部
-                      ListFooterComponent={this.renderFooter}//尾巴
-                      renderItem= {
-                        ({item}) => 
-                          <View style={styles.container}>
-                            <Image  style={styles.image} source={{uri: item.avatar_url, width: 44, height: 44}}  />
-                            <View style={styles.txtwarpper}>
-                                <View style={styles.txt}>
-                                    <Text style={styles.name}>{item.name}</Text>
-                                    <Text numberOfLines={2} style={styles.content}>{item.created_at}</Text>
-                                </View>
-                                <Text style={styles.time}>{formateTime(item.created_at)}</Text>
-                            </View>
-                          </View>
-                      }
-                      // ItemSeparatorComponent={this.renderSeparator}//每行底部---一般写下划线
-                      enableEmptySections={true}//数据可以为空
-                      keyExtractor={(item, index)=>item._id}
-                      onEndReachedThreshold={0.1}//执行上啦的时候10%执行
-                      onEndReached={this.LoreMore}
-                      data={this.state.dataSource}
-                      // scrollToEnd={alert('scrollToEnd')}
-                      refreshing={this.state.refreshing}
-                      onRefresh={this.Refresh.bind(this)}
-                      // refreshControl={
-                      //     <RefreshControl
-                      //         refreshing={this.state.refreshing}
-                      //         onRefresh={this.Refresh}
-                      //         title="Loading..."/>
-                      // }
-                  />
-                  
+          <View style={{flex: 1, backgroundColor: '#eee'}}>
+            {/* 朋友圈 */}
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
+              <TouchableOpacity
+                onPress={this.props.navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="ios-aperture" size={18} color="#00c1de" ></Icon>
                 </View>
+                <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
+                  <Text style={{fontSize: 16}} >朋友圈</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
             </View>
+
+            {/* 收藏 */}
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
+              <TouchableOpacity
+                onPress={this.props.navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="md-qr-scanner" size={18} color="orange" ></Icon>
+                </View>
+                <View style={styles.itemWrapper}>
+                  <Text style={{fontSize: 16}} >扫一扫</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+            {/* 摇一摇 */}
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15, }}>
+              <TouchableOpacity
+                onPress={this.props.navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="ios-images" size={18} color="#00c1de" ></Icon>
+                </View>
+                <View style={styles.itemWrapper}>
+                  <Text style={{fontSize: 16}} >摇一摇</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+            {/* 看一看 */}
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
+              <TouchableOpacity
+                onPress={this.props.navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="md-eye" size={18} color="#FF962B" ></Icon>
+                </View>
+                <View style={styles.itemWrapper}>
+                  <Text style={{fontSize: 16}} >看一看</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+            {/* 搜一搜 */}
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15, }}>
+              <TouchableOpacity
+                onPress={this.props.navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="md-happy" size={18} color="#FF7E50" ></Icon>
+                </View>
+                <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
+                  <Text style={{fontSize: 16}} >搜一搜</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+
+            {/* 附近的人 */}
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
+              <TouchableOpacity
+                onPress={this.props.navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="md-people" size={18} color="#41D3FF" ></Icon>
+                </View>
+                <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
+                  <Text style={{fontSize: 16}} >附近的人</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+            {/* 购物 */}
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
+              <TouchableOpacity
+                onPress={this.props.navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="ios-share" size={18} color="#E89D90" ></Icon>
+                </View>
+                <View style={styles.itemWrapper}>
+                  <Text style={{fontSize: 16}} >购物</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+            {/* 小游戏 */}
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
+              <TouchableOpacity
+                onPress={this.props.navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="ios-american-football" size={18} color="#FBABFF" ></Icon>
+                </View>
+                <View style={styles.itemWrapper}>
+                  <Text style={{fontSize: 16}} >小游戏</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+
+            {/* 小程序 */}
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
+              <TouchableOpacity
+                onPress={this.props.navigation.getParam('takePicture')}
+                marginRight="20"
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="ios-link" size={18} color="#9790E8" ></Icon>
+                </View>
+                <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
+                  <Text style={{fontSize: 16}} >小程序</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+
+          </View>
         );
     }
 }
-
-
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'row',
-      marginBottom: 15,
-      marginBottom: 15,
-      marginLeft: 15,
-      marginRight: 15,
-      marginTop: 15
-    },
-    image: {
-      flex: 1,
-      borderRadius: 4,
-    },
-    txtwarpper: {
-      flex: 5,
-      flexDirection: 'row',
-      borderBottomWidth: 1,
-      borderStyle: 'solid',
-      borderBottomColor: '#ccc',
-      marginLeft: 10
-    },
-    txt: {
-      paddingTop: 10,
-      flex: 3,
-      overflow: 'hidden',
-      flexWrap: 'nowrap',// 没有用
-      alignItems: 'flex-start',
-      justifyContent: 'center'
-    },
-    name: {
-      fontSize: 18,
-      paddingBottom: 5
-      // flex:1
-    },
-    content: {
-      color: '#ddd',
-      fontSize: 14
-    },
-    time: {
-      flex: 1,
-      flexWrap: 'nowrap',
-      color: '#ddd',
-      fontSize: 12,
-      textAlign: 'right',
-    },
-    footer: {
-      textAlign: 'center',
-      color: '#999'
-    }
+  msgHeader: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+  },
+  itemWrapper: {
+    flex: 1, 
+    flexDirection: 'row', 
+    marginLeft: 15, 
+    justifyContent: 'space-between', 
+    height: 30,
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+  }
 })
 
-export default DetailsScreen
+export default MyScreen

@@ -56,16 +56,16 @@ let BottomNav = createBottomTabNavigator(
         let badgeCount = 3
         switch(routeName) {
           case '微信':
-            iconName = 'logo-twitter';
+            iconName = 'ios-text';
             break;
           case '通讯录':
-            iconName = 'md-arrow-back';
+            iconName = 'md-person-add';
             break;
           case '发现':
-            iconName = 'md-more';
+            iconName = 'md-compass';
             break;
           case '我':
-            iconName = 'md-settings';
+            iconName = 'ios-person';
             break;
         }
         iconColor = `${focused ? '#00c1de' : 'gray'}`;

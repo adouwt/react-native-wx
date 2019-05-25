@@ -85,19 +85,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingTop: 5
     },
-    DetailsScreenHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems:'center',
-      paddingLeft: 20,
-      paddingRight: 20,
-      lineHeight:60, 
-      height: 60, 
-      backgroundColor: '#00c1de', 
-      fontWeight: 'bold',
-      fontSize: 30,
-      position: 'relative'
-    },
     image: {
         flex: 1,
         borderRadius: 4,
