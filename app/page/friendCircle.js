@@ -3,10 +3,10 @@ import { View, Text, Button, StyleSheet, TouchableOpacity, Image, FlatList, Refr
 import fetchRequest from '../utils/fetch'
 import { formateTime } from '../utils/formate-time.js'
 
-class DetailsScreen extends React.Component {
+class FriendCircleScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
-          title: '发现',
+          title: '朋友圈',
           headerStyle: {
             backgroundColor: '#fff',
           },
@@ -16,6 +16,7 @@ class DetailsScreen extends React.Component {
           },
         };
     }
+    _isMounted = false; // 解决warning
 
     constructor(props) {
         super(props)
@@ -29,21 +30,27 @@ class DetailsScreen extends React.Component {
     }
 
     componentDidMount(){
+      this._isMounted = true
       fetchRequest(
         '/post/getUsersFromPage',
         'POST', 
         {"page": this.state.count, "skip":false}
       )
       .then(res => {
-        this.setState({
-          dataSource: res.users,
-          count: this.state.count,
-          maxSize: res.maxSize
-        })
-        
+        if(this._isMounted) {
+          this.setState({
+            dataSource: res.users,
+            count: this.state.count,
+            maxSize: res.maxSize
+          })
+        }
       })
     }
-  
+
+    componentWillUnmount() {
+      this._isMounted = false;
+    }
+
     LoreMore = ()=> {
       if(this.state.count < this.state.maxSize) {
         this.Refresh()
@@ -200,4 +207,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DetailsScreen
+export default FriendCircleScreen

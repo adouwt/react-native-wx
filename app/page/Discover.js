@@ -27,6 +27,7 @@ class MyScreen extends React.Component {
           ),
         };
     }
+    _isMounted = false; // 解决warning
 
     constructor(props) {
         super(props)
@@ -38,7 +39,10 @@ class MyScreen extends React.Component {
     }
 
     componentDidMount() {
-      this.props.navigation.setParams({ Toggle: this.toggleHandle });
+      this._isMounted = true;
+      if (this._isMounted) {
+        this.props.navigation.setParams({ Toggle: this.toggleHandle });
+      }
     }
     
     toggleHandle = () => {
@@ -58,6 +62,9 @@ class MyScreen extends React.Component {
       }
       );
     } 
+    componentWillUnmount() {
+      this._isMounted = false;
+    }
 
     modelComponent = () => {
         return (

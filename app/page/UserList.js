@@ -119,19 +119,7 @@ const styles = StyleSheet.create({
       paddingBottom: 10,
       flexDirection: 'row'
     },
-    DetailsScreenHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems:'center',
-      paddingLeft: 20,
-      paddingRight: 20,
-      lineHeight:60, 
-      height: 60, 
-      backgroundColor: '#00c1de', 
-      fontWeight: 'bold',
-      fontSize: 30,
-      position: 'relative'
-    },
+    
     sectionHeader: {
       paddingTop: 2,
       paddingLeft: 10,
