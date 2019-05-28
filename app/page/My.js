@@ -52,13 +52,13 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 100, padding: 15}}>
               <TouchableOpacity
                 onPress={this.props.navigation.getParam('takePicture')}
-                marginRight="20"
+                style={styles.ContainerItem}
               >
               <View style={styles.msgHeader}>
                 <Image source={{uri: 'https://pic.qqtn.com/up/2018-5/15252271245423063.jpg', width: 50, height: 50, borderRadius: 5}}></Image>
                 <View style={{flex: 1, flexDirection: 'column', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
                   <Text style={{fontSize: 20}} >迩伶贰</Text>
-                  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 10}}>
+                  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 3}}>
                     <Text >微信号：adouwt</Text>
                     <Icon name="ios-arrow-forward" size={18} color="#333"></Icon>
                   </View>
@@ -71,7 +71,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
                 onPress={this.props.navigation.getParam('takePicture')}
-                marginRight="20"
+                style={styles.ContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -89,7 +89,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
                 onPress={this.props.navigation.getParam('takePicture')}
-                marginRight="20"
+                style={styles.ContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -108,7 +108,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, }}>
               <TouchableOpacity
                 onPress={this.props.navigation.getParam('takePicture')}
-                marginRight="20"
+                style={styles.ContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -127,7 +127,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, }}>
               <TouchableOpacity
                 onPress={this.props.navigation.getParam('takePicture')}
-                marginRight="20"
+                style={styles.ContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -146,7 +146,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, }}>
               <TouchableOpacity
                 onPress={this.props.navigation.getParam('takePicture')}
-                marginRight="20"
+                style={styles.ContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -166,7 +166,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
                 onPress={this.props.navigation.getParam('takePicture')}
-                marginRight="20"
+                style={styles.ContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -189,7 +189,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     backgroundColor: '#fff',
-  }
+  },
+  ContainerItem: {
+    flex: 1,
+    flexDirection: 'row',
+  },
 })
 
 export default MyScreen

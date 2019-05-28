@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, TouchableOpacity, Animated, Easing} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import { getLabelPrinter } from 'jest-matcher-utils';
 
 class MyScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -46,6 +45,7 @@ class MyScreen extends React.Component {
     }
     
     toggleHandle = () => {
+      console.log(123)
       this.modelComponent()
       this.setState({
         isOn: !this.state.isOn
@@ -81,7 +81,7 @@ class MyScreen extends React.Component {
             <Text style={styles.modelArrow}></Text>
             <View style={styles.modelContainer}>
               <View style={{height: 35, marginBottom: 10}}>
-                  <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                  <TouchableOpacity onPress={ () =>{alert('发起群聊')}} style={styles.modelContainerItem}>
                     <View style={styles.modelContainerItem}> 
                       <View style={{height: 30}}>
                         <Icon name="md-chatboxes" size={18} color="#fff" ></Icon>
@@ -91,7 +91,7 @@ class MyScreen extends React.Component {
                   </TouchableOpacity>
                 </View>
               <View style={{height: 35, marginBottom: 10}}>
-                <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                <TouchableOpacity onPress={ () =>{alert('添加朋友')}} style={styles.modelContainerItem}>
                   <View style={styles.modelContainerItem}> 
                     <View style={{height: 30}}>
                       <Icon name="md-person-add" size={20} color="#fff" ></Icon>
@@ -101,7 +101,7 @@ class MyScreen extends React.Component {
                 </TouchableOpacity>
               </View>
               <View style={{height: 35, marginBottom: 10}}>
-                <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                <TouchableOpacity onPress={ () =>{alert('扫一扫')}} style={styles.modelContainerItem}>
                   <View style={styles.modelContainerItem}> 
                     <View style={{height: 30}}>
                       <Icon name="ios-qr-scanner" size={18} color="#fff" ></Icon>
@@ -111,7 +111,7 @@ class MyScreen extends React.Component {
                 </TouchableOpacity>
               </View>
               <View style={{height: 35, marginBottom: 10}}>
-                <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                <TouchableOpacity onPress={ () =>{alert('收付款')}} style={styles.modelContainerItem}>
                   <View style={styles.modelContainerItem}> 
                     <View style={{height: 30}}>
                       <Icon name="ios-aperture" size={18} color="#fff" ></Icon>
@@ -121,7 +121,7 @@ class MyScreen extends React.Component {
                 </TouchableOpacity>
               </View>
               <View style={{height: 35, marginBottom: 10}}>
-                <TouchableOpacity onPress={ () =>{alert('群聊')}}>
+                <TouchableOpacity onPress={ () =>{alert('帮助与反馈')}} style={styles.modelContainerItem}>
                   <View style={styles.modelContainerItem}> 
                     <View style={{height: 30}}>
                       <Icon name="ios-mail" size={18} color="#fff" ></Icon>
@@ -148,8 +148,8 @@ class MyScreen extends React.Component {
             {/* 朋友圈 */}
             <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
               <TouchableOpacity
+                style={styles.modelContainerItem}
                 onPress={this.toFriendCicle.bind(this)}
-                marginRight="20"
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -168,6 +168,7 @@ class MyScreen extends React.Component {
               <TouchableOpacity
                 onPress={this.toFriendCicle.bind(this)}
                 marginRight="20"
+                style={styles.modelContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -184,7 +185,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, }}>
               <TouchableOpacity
                 onPress={this.toFriendCicle.bind(this)}
-                marginRight="20"
+                style={styles.modelContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -201,7 +202,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
                 onPress={this.toFriendCicle.bind(this)}
-                marginRight="20"
+                style={styles.modelContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -218,7 +219,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, }}>
               <TouchableOpacity
                 onPress={this.toFriendCicle.bind(this)}
-                marginRight="20"
+                style={styles.modelContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -236,7 +237,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
                 onPress={this.toFriendCicle.bind(this)}
-                marginRight="20"
+                style={styles.modelContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -253,7 +254,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
                 onPress={this.toFriendCicle.bind(this)}
-                marginRight="20"
+                style={styles.modelContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -270,7 +271,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
               <TouchableOpacity
                 onPress={this.toFriendCicle.bind(this)}
-                marginRight="20"
+                style={styles.modelContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>
@@ -288,7 +289,7 @@ class MyScreen extends React.Component {
             <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
               <TouchableOpacity
                 onPress={this.toFriendCicle.bind(this)}
-                marginRight="20"
+                style={styles.modelContainerItem}
               >
               <View style={styles.msgHeader}>
                 <View style={{color: '#333', width: 18, height: 20}}>

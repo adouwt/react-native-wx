@@ -64,7 +64,7 @@ class CameraComponent extends React.Component {
                             style={styles.preview}
                             type={ this.state.cameraType}
                             flashMode={RNCamera.Constants.FlashMode.on}
-                            autoFocus={RNCamera.Constants.AutoFocus.off}
+                            autoFocus={RNCamera.Constants.AutoFocus.on}
                             androidCameraPermissionOptions={{
                                 title: 'Permission to use camera',
                                 message: 'We need your permission to use your camera',
