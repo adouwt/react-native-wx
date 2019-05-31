@@ -8,3 +8,6 @@
   npm install 
   npm run ios or npm run and
 ```
+博客预览地址：
+
+[先预览看看](https://segmentfault.com/a/1190000019333809)
