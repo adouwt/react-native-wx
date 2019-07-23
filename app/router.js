@@ -10,7 +10,7 @@ import LoginScreen from './page/login'
 import RegisterScreen from './page/register'
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text } from 'react-native';
-import { createAppContainer, createBottomTabNavigator, createStackNavigator, createDrawerNavigator } from 'react-navigation'; // Version can be specified in package.json
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 
 const HomeNav = createStackNavigator({

@@ -46,6 +46,9 @@ class MyScreen extends React.Component {
         this.props.navigation.navigate('Camera')
     };
     toLogin = () => {
+      this.props.navigation.navigate('Login')
+    };
+    toRegister = () => {
       this.props.navigation.navigate('Register')
     };
     render() {
@@ -192,7 +195,23 @@ class MyScreen extends React.Component {
                   <Icon name="md-settings" size={18} color="#00c1de" ></Icon>
                 </View>
                 <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
-                  <Text style={{fontSize: 16}} >登录/注册</Text>
+                  <Text style={{fontSize: 16}} >登录</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
+              <TouchableOpacity
+                onPress={this.toRegister.bind(this)}
+                style={styles.ContainerItem}
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="md-settings" size={18} color="#00c1de" ></Icon>
+                </View>
+                <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
+                  <Text style={{fontSize: 16}} >注册</Text>
                   <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
                 </View>
               </View>

@@ -12,7 +12,7 @@ const  fetchRequest = (url, method, params = '') => {
         "Content-Type": "application/json;charset=UTF-8",
         "accesstoken":token  //用户登陆后返回的token，某些涉及用户数据的接口需要在header中加上token
     };
-    if(params == ''){   //如果网络请求中带有参数
+    if(params == ''){   //如果网络请求中没有参数
         return new Promise(function (resolve, reject) {
             fetch(common_url + url, {
                 method: method,
@@ -25,7 +25,7 @@ const  fetchRequest = (url, method, params = '') => {
                     reject(err);
                 });
         });
-    } else{   //如果网络请求中没有参数
+    } else{   //如果网络请求中有参数
         return new Promise(function (resolve, reject) {
             fetch(common_url + url, {
                 method: method,
