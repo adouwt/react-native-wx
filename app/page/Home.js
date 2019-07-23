@@ -16,11 +16,11 @@ class HomeScreen extends React.Component {
   };
     constructor(props){
       super(props);
-      this.state ={ isLoading: true}
       this.state= {
-        dataSource: []
+        dataSource: [],
+        MyId: '5c9f994a3659414c8ab5a19b',
+        isLoading: false
       }
-      this.jumpChat = this.jumpChat.bind(this)
     }
 
   componentDidMount(){
@@ -35,11 +35,6 @@ class HomeScreen extends React.Component {
         })
     })
   }
-
-  jumpChat = (name) => {
-    this.props.navigation.navigate('Chat', {roomId: 'sds', name: name})
-  }
-
 
   render () {
 
@@ -58,7 +53,7 @@ class HomeScreen extends React.Component {
           data={this.state.dataSource}
           renderItem= {
             ({item}) => 
-              <TouchableOpacity onPress={() => {this.props.navigation.navigate('Chat', {roomId: item._id, name: item.name})}}>
+              <TouchableOpacity onPress={() => {this.props.navigation.navigate('Chat', {roomId: this.state.MyId +'&' + item._id, friendName: item.name})}}>
                 <View style={styles.container}>
                   <Image  style={styles.image} source={{uri: item.avatar_url, width: 44, height: 44}}  />
                   <View style={styles.txtwarpper}>
