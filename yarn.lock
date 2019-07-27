@@ -816,6 +816,11 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
+"@react-native-community/async-storage@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.npm.taobao.org/@react-native-community/async-storage/download/@react-native-community/async-storage-1.6.1.tgz#19be07fc1d65c77bdeb20f46108ba12076aad1c5"
+  integrity sha1-Gb4H/B1lx3vesg9GEIuhIHaq0cU=
+
 "@react-native-community/cli@^1.2.1":
   version "1.9.4"
   resolved "https://registry.npm.taobao.org/@react-native-community/cli/download/@react-native-community/cli-1.9.4.tgz#51e4ba30aa6ee29f0c1e2bedf69ac7d1a4df1a8c"

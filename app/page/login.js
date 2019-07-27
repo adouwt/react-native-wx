@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity} from  'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-community/async-storage';
 import fetchRequest from '../utils/fetch'
+import { red } from 'ansi-colors';
 
 class Login extends React.Component {
     static navigationOPtions = ({navigation}) => {
@@ -29,14 +31,20 @@ class Login extends React.Component {
                 "password": this.state.pwd,
             }
         )
-        .then(res => {
-            alert(JSON.stringify(res))
+        .then(async (res) => {
+            // alert(JSON.stringify(res))
             if(res.success) {
+                await AsyncStorage.setItem('userToken', res.token);
                 this.props.navigation.navigate('Home')
             }
             console.log(res)
         })
     }
+
+    Register = () => {
+        this.props.navigation.navigate('Register')
+    }
+
     render() {
         return (
             <View>
@@ -54,11 +62,18 @@ class Login extends React.Component {
                         onChangeText={(text) => this.setState({'pwd': text})}
                         value={this.state.pwd}
                     />
+
+                    <TouchableOpacity
+                        style={{marginTop: 20, alignItems: 'flex-end', color: '#ddd'}}
+                        onPress={this.Register.bind(this)}
+                    >
+                        <Text style={styles.primaryColor}>没有账号，我来注册</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={this.Login.bind(this)}
                     >
-                        <Text> Touch Here </Text>
+                        <Text style={styles.whiteColor}> 点我登录 </Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -83,13 +98,18 @@ const styles = StyleSheet.create({
     },
 
     button: {
-      alignItems: 'center',
-      backgroundColor: '#DDDDDD',
-      padding: 10,
-      marginTop: 25,
-      borderRadius: 5
+        alignItems: 'center',
+        backgroundColor: '#1AAD19',
+        padding: 10,
+        marginTop: 25,
+        borderRadius: 5
     },
-
+    primaryColor: {
+        color: '#1AAD19',
+    },
+    whiteColor: {
+        color: '#fff'
+    }
 });
 
 export default Login;

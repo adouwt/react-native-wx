@@ -73,7 +73,7 @@ class Register extends React.Component {
                         style={styles.button}
                         onPress={this.Register.bind(this)}
                     >
-                        <Text> Touch Here </Text>
+                        <Text style={styles.whiteColor}> 点我注册 </Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -99,12 +99,17 @@ const styles = StyleSheet.create({
 
     button: {
       alignItems: 'center',
-      backgroundColor: '#DDDDDD',
+      backgroundColor: '#1AAD19',
       padding: 10,
       marginTop: 25,
       borderRadius: 5
     },
-
+    primaryColor: {
+        color: '#1AAD19',
+    },
+    whiteColor: {
+        color: '#fff'
+    }
 });
 
 export default Register;

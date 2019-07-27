@@ -7,10 +7,10 @@ let token = '';
  * @param {JSON} [params=''] body的请求参数，默认为空
  * @return 返回Promise
  */
-const  fetchRequest = (url, method, params = '') => {
+const  fetchRequest = (url, method, params = '', token='') => {
     let header = {
         "Content-Type": "application/json;charset=UTF-8",
-        "accesstoken":token  //用户登陆后返回的token，某些涉及用户数据的接口需要在header中加上token
+        "w-token":token  //用户登陆后返回的token，某些涉及用户数据的接口需要在header中加上token
     };
     if(params == ''){   //如果网络请求中没有参数
         return new Promise(function (resolve, reject) {
