@@ -71,7 +71,7 @@ class ChatScreen extends React.Component {
                     },
                     {
                         'isMe': true, 
-                        uri: 'http://www.158pic.com/uploads/allimg/1904/2-1Z4021935240-L.jpg', 
+                        uri: 'https://b-ssl.duitang.com/uploads/item/201703/11/20170311184143_NMUrn.thumb.700_0.jpeg', 
                         text: 'CSS中没有对应的属性，iOS 图像上特殊的色彩，改变不透明像素的颜色'
                     }
                 ]
@@ -105,7 +105,7 @@ class ChatScreen extends React.Component {
         this.state.allChatContents.push({
             text: this.state.currentChatMsg,
             isMe: true, 
-            uri: 'http://www.158pic.com/uploads/allimg/1904/2-1Z4021935240-L.jpg',
+            uri: 'https://b-ssl.duitang.com/uploads/item/201703/11/20170311184143_NMUrn.thumb.700_0.jpeg',
             id: '5c9f994a3659414c8ab5a19b'
         })
 
