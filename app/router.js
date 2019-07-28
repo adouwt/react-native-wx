@@ -8,6 +8,7 @@ import ChatScreen from './page/Chat'
 import FriendCircle from './page/friendCircle'
 import LoginScreen from './page/login'
 import RegisterScreen from './page/register'
+import MyLocationScreen from './page/MyLocation'
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
@@ -131,6 +132,9 @@ let RootNav = createStackNavigator({
   },
   Register: {
     screen: RegisterScreen
+  },
+  MyLocation: {
+    screen: MyLocationScreen
   }
 })
 

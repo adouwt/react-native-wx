@@ -51,6 +51,9 @@ class MyScreen extends React.Component {
     toRegister = () => {
       this.props.navigation.navigate('Register')
     };
+    toShowMyLocation = () => {
+      this.props.navigation.navigate('MyLocation')
+    }
     render() {
         return (
           <View style={{flex: 1, backgroundColor: '#eee'}}>
@@ -212,6 +215,23 @@ class MyScreen extends React.Component {
                 </View>
                 <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
                   <Text style={{fontSize: 16}} >注册</Text>
+                  <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                </View>
+              </View>
+              </TouchableOpacity>
+            </View>
+
+            <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
+              <TouchableOpacity
+                onPress={this.toShowMyLocation.bind(this)}
+                style={styles.ContainerItem}
+              >
+              <View style={styles.msgHeader}>
+                <View style={{color: '#333', width: 18, height: 20}}>
+                  <Icon name="md-settings" size={18} color="#00c1de" ></Icon>
+                </View>
+                <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
+                  <Text style={{fontSize: 16}} >我的位置</Text>
                   <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
                 </View>
               </View>

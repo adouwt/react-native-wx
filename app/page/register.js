@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import fetchRequest from '../utils/fetch'
 
 class Register extends React.Component {
-    static navigationOPtions = ({navigation}) => {
+    static navigationOptions = ({navigation}) => {
         return {
             title: '注册',
             headerStyle: {

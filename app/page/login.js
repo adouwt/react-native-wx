@@ -6,7 +6,7 @@ import fetchRequest from '../utils/fetch'
 import { red } from 'ansi-colors';
 
 class Login extends React.Component {
-    static navigationOPtions = ({navigation}) => {
+    static navigationOptions = ({navigation}) => {
         return {
             title: '登录',
             headerStyle: {
