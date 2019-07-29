@@ -5099,6 +5099,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
+react-native-baidu-map@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npm.taobao.org/react-native-baidu-map/download/react-native-baidu-map-0.6.0.tgz#cb4937181e8e0cd2125d347a5b87ca13971647dd"
+  integrity sha1-y0k3GB6ODNISXTR6W4fKE5cWR90=
+
 react-native-camera@^2.9.0:
   version "2.9.0"
   resolved "https://registry.npm.taobao.org/react-native-camera/download/react-native-camera-2.9.0.tgz#5ef94a535dbbfd215d672deef8d0c45bf06b1f3a"

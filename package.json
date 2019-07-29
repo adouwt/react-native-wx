@@ -16,6 +16,7 @@
     "@react-native-community/async-storage": "^1.6.1",
     "react": "16.8.3",
     "react-native": "0.59.8",
+    "react-native-baidu-map": "^0.6.0",
     "react-native-camera": "^2.9.0",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-vector-icons": "^6.4.2",
