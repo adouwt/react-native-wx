@@ -4,6 +4,7 @@ import fetchRequest from '../utils/fetch'
 import Icon from "react-native-vector-icons/Ionicons";
 import Socket from 'socket.io-client'
 
+let socket = Socket('http://localhost:3000');
 class ChatTogetherScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
@@ -21,82 +22,112 @@ class ChatTogetherScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            friendName: '',
             roomId: '',
             allChatContents: [],
             userMsg: {},
             isMe: true,
-            currentChatMsg: '1221',
-            value: '',
-            socket: Socket('http://localhost:3000')
-
+            currentChatMsg: '',
+            myAvatar: '',
+            value: '',           
         }
     }
     initChatData = () => {
         this.state.roomId = this.props.navigation.state.params.roomId;
-        // 获取历史信息
+        // 获取聊天室历史信息
         fetchRequest('/post/getRoomMsg', 'POST', 
         {
             roomId: this.state.roomId,
         })
         .then(res => {
+          console.log(res)
+          if(res.success) {
             this.setState({
-                userMsg: res
+                allChatContents: res.msgData.allChatContents
             })
+          }
         })
-        
-        this.setState({
-            allChatContents:    
-                [    
-                    {
-                        'isMe': false,
-                        uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564222023705&di=9a2c58c6b4611c97e326ccd68af44c96&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201703%2F16%2F20170316161525_rQMtc.thumb.224_0.jpeg', 
-                        text: 'CSS中没有对应的属性，iOS 图像上特殊的色彩，改变不透明像素的颜色,CSS中没有对应的属性，iOS图像上特殊的色彩，改变不透明像素的颜色,CSS中没有对应的属性，iOS图像上特殊的色彩，改变不透明像素的颜色,CSS中没有对应的属性，iOS'
-                    },
-                    {
-                        'isMe': true, 
-                        uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564221869343&di=bf9f44ac8f496937826b802ed07b41ac&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201805%2F16%2F20180516001524_pgnyd.jpg', 
-                        text: 'CSS中没有对应的属性，iOS 图像上特殊的色彩，改变不透明像素的颜色'
-                    }
-                ]
+        // 获取我的信息
+        fetchRequest('/post/oneUser', 'POST', 
+        {
+            id: this.state.roomId,
+        })
+        .then(res => {
+          console.log(res)
+          if(res.success) {
+            this.setState({
+              userMsg: res.data.userMsg
+            })
+          }
+        })
+        // this.setState({
+        //     allChatContents:    
+        //         [    
+        //             {
+        //                 'isMe': false,
+        //                 uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564222023705&di=9a2c58c6b4611c97e326ccd68af44c96&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201703%2F16%2F20170316161525_rQMtc.thumb.224_0.jpeg', 
+        //                 text: 'CSS中没有对应的属性，iOS 图像上特殊的色彩，改变不透明像素的颜色,CSS中没有对应的属性，iOS图像上特殊的色彩，改变不透明像素的颜色,CSS中没有对应的属性，iOS图像上特殊的色彩，改变不透明像素的颜色,CSS中没有对应的属性，iOS'
+        //             },
+        //             {
+        //                 'isMe': true, 
+        //                 uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564221869343&di=bf9f44ac8f496937826b802ed07b41ac&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201805%2F16%2F20180516001524_pgnyd.jpg', 
+        //                 text: 'CSS中没有对应的属性，iOS 图像上特殊的色彩，改变不透明像素的颜色'
+        //             }
+        //         ]
+        // })
+    }
+
+    saveChatCurrentMsg = () => {
+      fetchRequest('/post/saveChatRoomMsg', 'POST', 
+        {
+          roomId: this.state.roomId,
+          currentMsg: {
+              'isMe': true, 
+              uri: this.state.userMsg.uri, 
+              _id: this.state.userMsg._id, 
+              name: this.state.userMsg.name,
+              text: this.state.value
+          }
+        })
+        .then(res => {
+            // this.setState({
+            //     userMsg: res
+            // })
+            console.log(res)
         })
     }
 
     componentDidMount(){
         this.initChatData()
     }
+
+    pushArrMsg = () => {
+      this.setState({
+        allChatContents: this.state.allChatContents.concat(
+          {
+            'isMe': true, 
+            uri: this.state.userMsg.uri, 
+            _id: this.state.userMsg._id, 
+            name: this.state.userMsg.name,
+            text: this.state.value
+          }
+        ),
+        value: '',
+      })
+    }
     
     submitMSg = () => {
-        this.state.socket.emit('erlingerFamily',{
-            "contents" : this.state.currentChatMsg,
-        });
-        // alert(this.state.roomId)
-        _this = this
-        this.state.socket.on('erlingerFamily', function (msg) {
-            alert(JSON.stringify(msg))
-            if(msg.contents) {
-                _this.state.allChatContents.push({
-                    text: msg.contents,
-                    'isMe': true, 
-                    uri: 'https://b-ssl.duitang.com/uploads/item/201703/11/20170311184143_NMUrn.thumb.700_0.jpeg',
-                    id: '5c9f994a3659414c8ab5a19b'
-                })
-                // alert(JSON.stringify(_this.state.allChatContents))
-            }
-        // 这里为什么页面渲染信息的个数会逐个增加
-        })
-
-        // this.state.allChatContents.push({
-        //     text: this.state.currentChatMsg,
-        //     isMe: true, 
-        //     uri: 'https://b-ssl.duitang.com/uploads/item/201703/11/20170311184143_NMUrn.thumb.700_0.jpeg',
-        //     id: '5c9f994a3659414c8ab5a19b'
-        // })
-
-        this.setState({
-            value: '',
-        })
-    }
+      socket.emit('erlingerFamily',{
+          "contents" : this.state.value,
+      });
+      this.pushArrMsg(); // is a Bug
+      // socket.on('erlingerFamily',  (msg) => {
+      //     if(msg.contents) {
+      //       this.pushArrMsg();
+      //     }
+      // })
+      // 将提交的数据 保存数据库
+      this.saveChatCurrentMsg();
+  }
     render() {
         return (
           <View style={{flex: 1, padding: 10, paddingTop: 0,backgroundColor: '#eee'}}>
