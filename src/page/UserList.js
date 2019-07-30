@@ -1,6 +1,8 @@
 import React from 'react';
 import { SectionList, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
+import fetchRequest from '../utils/fetch'
+import AsyncStorage from '@react-native-community/async-storage';
 
 class UserListScreen extends React.Component {
     static navigationOptions = {
@@ -9,11 +11,49 @@ class UserListScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          MyId: '5d3ff85dfb2bff8c6b20a5dc'
+          MyId: '',
+          commomRoomId: '',
+          roomName: 'erlingerRoom'
         }
     }
+    componentDidMount() {
+      new Promise((resolve, rejects) => {
+        let userToken =  AsyncStorage.getItem('userToken');
+        resolve(userToken)
+      })
+      .then( res => {
+        // 获取我的信息
+        fetchRequest('/get/user/info', 'POST', 
+        {},
+        res
+        )
+        .then(res => {
+          console.log(res)
+          if(res.success) {
+            this.setState({
+              MyId: res.data._id
+            })
+          }
+        })
+      })
+      
+      // 生成公共的聊天室
+      fetchRequest('/post/generateCommomRoom', 'POST', 
+      {
+        roomName: this.state.roomName,
+      })
+      .then(res => {
+        console.log(res)
+        if(res.success) {
+          this.setState({
+            commomRoomId: res.data.roomId
+          })
+        }
+      })
+    }
     togetherChat = () => {
-      this.props.navigation.navigate('ChatTogether',{roomId: this.state.MyId})
+      // alert(this.state.commomRoomId+'---'+this.state.MyId)
+      this.props.navigation.navigate('ChatTogether',{roomId: this.state.commomRoomId, MyId: this.state.MyId})
     }
     render() {
       return (

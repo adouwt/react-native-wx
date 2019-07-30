@@ -28,15 +28,20 @@ class ChatTogetherScreen extends React.Component {
             isMe: true,
             currentChatMsg: '',
             myAvatar: '',
-            value: '',           
+            value: '',  
+            MyId:''         
         }
     }
     initChatData = () => {
-        this.state.roomId = this.props.navigation.state.params.roomId;
+        this.setState({
+          MyId: this.props.navigation.state.params.MyId,
+          roomId: this.props.navigation.state.params.roomId,
+        })
+        // alert(this.props.navigation.state.params.roomId)
         // 获取聊天室历史信息
         fetchRequest('/post/getRoomMsg', 'POST', 
         {
-            roomId: this.state.roomId,
+            roomId: this.props.navigation.state.params.roomId,
         })
         .then(res => {
           console.log(res)
@@ -46,10 +51,11 @@ class ChatTogetherScreen extends React.Component {
             })
           }
         })
+
         // 获取我的信息
         fetchRequest('/post/oneUser', 'POST', 
         {
-            id: this.state.roomId,
+            id: this.props.navigation.state.params.MyId,
         })
         .then(res => {
           console.log(res)
