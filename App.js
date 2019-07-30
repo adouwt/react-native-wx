@@ -1,4 +1,4 @@
-import AppStack from './app/router'
+import AppStack from './src/router'
 import React from 'react';
 import {
   ActivityIndicator,
@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'; // Version can be specified in package.json
 import AsyncStorage from '@react-native-community/async-storage';
-import SignInScreen from './app/page/login';
-import fetchRequest from './app/utils/fetch';
+import SignInScreen from './src/page/login';
+import fetchRequest from './src/utils/fetch';
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {
