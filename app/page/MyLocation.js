@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity} from  'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import fetchRequest from '../utils/fetch'
+import { MapView } from 'react-native-amap3d'
 
 class MyLocation extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -30,6 +31,12 @@ class MyLocation extends React.Component {
             <View>
                 <View style={styles.wrapper}>
                     <Text style={styles.title}>location</Text>
+                    <MapView
+                        coordinate={{
+                            latitude: 39.91095,
+                            longitude: 116.37296,
+                        }}
+                    />
                 </View>
             </View>
         )
