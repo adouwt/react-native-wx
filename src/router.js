@@ -5,6 +5,7 @@ import UserListScreen from './page/UserList'
 import MyScreen from './page/My'
 import CameraComponent from './component/camera'
 import ChatScreen from './page/Chat'
+import ChatTogetherScreen from './page/ChatTogether'
 import FriendCircle from './page/friendCircle'
 import LoginScreen from './page/login'
 import RegisterScreen from './page/register'
@@ -123,6 +124,9 @@ let RootNav = createStackNavigator({
   },
   Chat: {
     screen: ChatScreen
+  },
+  ChatTogether: {
+    screen: ChatTogetherScreen
   },
   FriendCircle: {
     screen: FriendCircle

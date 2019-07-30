@@ -32,7 +32,10 @@ class Register extends React.Component {
         }
     }
     changeUserName = (text) => {
-        let userReg = /\w{4}/;
+        let userReg = /\w{4,}/;
+        this.setState({
+            username: text
+        })
         if(userReg.test(text)) {
             this.setState({
                 usernameErr: ''
@@ -40,13 +43,15 @@ class Register extends React.Component {
         } else {
             this.setState({
                 usernameErr: true,
-                username: text
             })
         }
     }
 
     changePWD = (text) => {
         let pwdReg = /\w{6,15}/;
+        this.setState({
+            pwd: text
+        })
         if(pwdReg.test(text)) {
             this.setState({
                 pwdErr: ''
@@ -54,7 +59,6 @@ class Register extends React.Component {
         } else {
             this.setState({
                 pwdErr: true,
-                pwd: text
             })
         }
     }
@@ -88,8 +92,10 @@ class Register extends React.Component {
                     <View style={{position:'relative'}}>
                         <TextInput
                             style={styles.inputs}
+                            autoCapitalize="none"
                             placeholder="Please input your name"
                             onChangeText={this.changeUserName.bind(this)}
+                            value={this.state.username}
                         />
                         {
                             this.state.usernameErr ? <Text style={styles.errTips} >请输入正确的用户名</Text> :
@@ -103,6 +109,7 @@ class Register extends React.Component {
                             secureTextEntry={true}
                             placeholder="Please input your password"
                             onChangeText={this.changePWD.bind(this)}
+                            value={this.state.pwd}
                         />
                         {
                             this.state.pwdErr ? <Text style={{marginTop: 5,color: '#c00'}}>请输入6位的密码</Text>:

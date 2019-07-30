@@ -33,7 +33,10 @@ class Login extends React.Component {
         }
     }
     changeUserName = (text) => {
-        let userReg = /\w{4}/;
+        let userReg = /\w{4,}/;
+        this.setState({
+            username: text
+        })
         if(userReg.test(text)) {
             this.setState({
                 usernameErr: ''
@@ -47,6 +50,9 @@ class Login extends React.Component {
 
     changePWD = (text) => {
         let pwdReg = /\w{6,15}/;
+        this.setState({
+            pwd: text
+        })
         if(pwdReg.test(text)) {
             this.setState({
                 pwdErr: ''
@@ -95,6 +101,7 @@ class Login extends React.Component {
                         <TextInput
                             style={styles.inputs}
                             placeholder="Please input your name"
+                            autoCapitalize= 'none'
                             onChangeText={this.changeUserName.bind(this)}
                         />
                         {

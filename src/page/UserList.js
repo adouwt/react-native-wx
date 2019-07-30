@@ -1,15 +1,56 @@
 import React from 'react';
-import { SectionList, StyleSheet, Text, View, Image } from 'react-native';
-import TabBar from '../component/tabBar'
+import { SectionList, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import Icon from "react-native-vector-icons/Ionicons";
 
 class UserListScreen extends React.Component {
     static navigationOptions = {
         title: '通讯录',
     };
+    constructor(props) {
+        super(props)
+        this.state = {
+          MyId: '5d3ff85dfb2bff8c6b20a5dc'
+        }
+    }
+    togetherChat = () => {
+      this.props.navigation.navigate('ChatTogether',{roomId: this.state.MyId})
+    }
     render() {
       return (
         <View style={{ flex: 1, paddingBottom: 20}}>
             <View style={{ flex: 1}}>
+                <View style={{backgroundColor: '#fff', height: 50, padding: 15}}>
+                  <TouchableOpacity
+                    style={styles.modelContainerItem}
+                    onPress={this.togetherChat.bind(this)}
+                  >
+                  <View style={styles.msgHeader}>
+                    <View style={{color: '#333', width: 18, height: 20}}>
+                      <Icon name="ios-aperture" size={18} color="#00c1de" ></Icon>
+                    </View>
+                    <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
+                      <Text style={{fontSize: 16}} >发起群聊</Text>
+                      <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                    </View>
+                  </View>
+                  </TouchableOpacity>
+                </View>
+                <View style={{backgroundColor: '#fff', height: 50, padding: 15, borderTopWidth: 1, borderTopColor: '#ddd'}}>
+                  <TouchableOpacity
+                    style={styles.modelContainerItem}
+                    onPress={this.togetherChat.bind(this)}
+                  >
+                  <View style={styles.msgHeader}>
+                    <View style={{color: '#333', width: 18, height: 20}}>
+                      <Icon name="ios-aperture" size={18} color="#00c1de" ></Icon>
+                    </View>
+                    <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
+                      <Text style={{fontSize: 16}} >找个朋友</Text>
+                      <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
+                    </View>
+                  </View>
+                  </TouchableOpacity>
+                </View>
                 <SectionList
                     style={{ paddingLeft: 10, paddingRight: 10, paddingTop: 10}}
                     renderSectionHeader={({ section }) => (
@@ -140,7 +181,15 @@ const styles = StyleSheet.create({
       flex: 1,
       borderRadius: 10
     },
-
+    msgHeader: {
+      flex: 1,
+      flexDirection: 'row',
+      backgroundColor: '#fff',
+    },
+    modelContainerItem: {
+      flex: 1,
+      flexDirection: 'row',
+    }
 })
 
 export default UserListScreen
