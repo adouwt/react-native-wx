@@ -1,14 +1,33 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, Image, FlatList, TextInput } from 'react-native';
-import fetchRequest from '../utils/fetch'
+import fetchRequest from '../utils/fetch';
 import Icon from "react-native-vector-icons/Ionicons";
-import Socket from 'socket.io-client'
-import { YellowBox } from 'react-native';
+import Socket from 'socket.io-client';
+let socket = Socket('http://localhost:3000');
+let name = false;
 
-console.ignoredYellowBox = ['Remote debugger'];
-YellowBox.ignoreWarnings([
-    'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
-]);
+
+// 第一次登陆接收其它成员信息
+socket.on('login', function (user) {
+  console.log(user, '19')
+  if(user.length>=1){
+    for(var i =0;i<user.length;i++){
+      // incomeHtml(user[i],'src/img/head.jpg');
+    }
+  }
+});
+// 监听中途的成员加入
+socket.on('user joined', function (tname, index) {
+  console.log(tname+'房间建立');
+});
+
+// 接收私聊信息
+socket.on('receive private message', function (data) {
+  // 这里的data 应该渲染页面中
+  console.log(data);
+});
+
+
 
 class ChatScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -34,85 +53,93 @@ class ChatScreen extends React.Component {
             isMe: true,
             currentChatMsg: '1221',
             value: '',
-            socket: Socket.connect('http://localhost:3000')
         }
     }
-    initChatData = () => {
-        
+    initChatData = async () => {    
         //传输文本内容
         // 初始化数据
         this.state.roomId = this.props.navigation.state.params.roomId;
-        this.state.friendName = this.props.navigation.state.params.friendName;
-        this.state.socket.emit(this.state.roomId,{
-            "contents" : '',
-            "id": '5c9f994a3659414c8ab5a19b'
-        });
-
-        // 获取历史信息
-        fetchRequest('/post/getRoomMsg', 'POST', 
+        // 发送房间roomID给后台
+        socket.emit('new roomId', this.state.roomId);
+        // 获取我的信息
+        await fetchRequest('/post/oneUser', 'POST', 
         {
-            roomId: this.state.roomId,
-            friendName: this.state.friendName
+            id: this.props.navigation.state.params.MyId,
         })
         .then(res => {
+          console.log(res)
+          if(res.success) {
             this.setState({
-                userMsg: res
+              userMsg: res.data.userMsg
             })
+          }
         })
-        
-
-        this.setState({
-            allChatContents:    
-                [    
-                    {
-                        'isMe': false,
-                        uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564222023705&di=9a2c58c6b4611c97e326ccd68af44c96&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201703%2F16%2F20170316161525_rQMtc.thumb.224_0.jpeg', 
-                        text: 'CSS中没有对应的属性，iOS 图像上特殊的色彩，改变不透明像素的颜色,CSS中没有对应的属性，iOS图像上特殊的色彩，改变不透明像素的颜色,CSS中没有对应的属性，iOS图像上特殊的色彩，改变不透明像素的颜色,CSS中没有对应的属性，iOS'
-                    },
-                    {
-                        'isMe': true, 
-                        uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564221869343&di=bf9f44ac8f496937826b802ed07b41ac&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201805%2F16%2F20180516001524_pgnyd.jpg', 
-                        text: 'CSS中没有对应的属性，iOS 图像上特殊的色彩，改变不透明像素的颜色'
-                    }
-                ]
+        console.log('/post/getSingleRoomMsg woyao zhege')
+        // 获取聊天历史信息
+        await fetchRequest('/post/getSingleRoomMsg', 'POST', 
+        {
+            roomId: this.state.roomId,
+        })
+        .then(res => {
+          console.log(res)
+          if(res.success) {
+            this.setState({
+                allChatContents: res.msgData.allChatContents
+            })
+          }
+        })
+    }
+    saveChatCurrentMsg = () => {
+      fetchRequest('/post/saveChatRoomSingleMsg', 'POST', 
+        {
+          roomId: this.state.roomId,
+          currentMsg: {
+              uri: this.state.userMsg.uri, 
+              _id: this.state.userMsg._id, 
+              name: this.state.userMsg.name,
+              text: this.state.value
+          }
+        })
+        .then(res => {
+            // this.setState({
+            //     userMsg: res
+            // })
+            console.log(res)
         })
     }
 
     componentDidMount(){
         this.initChatData()
     }
-    
-    submitMSg = () => {
-        this.state.socket.emit(this.state.roomId,{
-            "contents" : this.state.currentChatMsg,
-            "id": '5c9f994a3659414c8ab5a19b'
-        });
-        // alert(this.state.roomId)
-        _this = this
-        // this.state.socket.on(this.state.roomId, function (msg) {
-        //     if(msg.contents) {
-        //         _this.state.allChatContents.push({
-        //             text: msg.contents,
-        //             'isMe': true, 
-        //             uri: 'http://www.158pic.com/uploads/allimg/1904/2-1Z4021935240-L.jpg',
-        //             id: '5c9f994a3659414c8ab5a19b'
-        //         })
-        //         // alert(JSON.stringify(_this.state.allChatContents))
-        //     }
-        // // 这里为什么页面渲染信息的个数会逐个增加
-        // })
-
-        this.state.allChatContents.push({
-            text: this.state.currentChatMsg,
-            isMe: true, 
-            uri: 'https://b-ssl.duitang.com/uploads/item/201703/11/20170311184143_NMUrn.thumb.700_0.jpeg',
-            id: '5c9f994a3659414c8ab5a19b'
-        })
-
-        this.setState({
-            value: '',
-        })
+    pushArrMsg = () => {
+      this.setState({
+        allChatContents: this.state.allChatContents.concat(
+          {
+            uri: this.state.userMsg.uri, 
+            _id: this.state.userMsg._id, 
+            name: this.state.userMsg.name,
+            text: this.state.value
+          }
+        ),
+        value: '',
+      })
     }
+
+    submitMSg = () => {
+      socket.emit('send private message', {
+        "contents" : this.state.value,
+        "roomId": this.state.roomId
+      });
+      this.pushArrMsg(); // is a Bug
+      // socket.on('erlingerFamily',  (msg) => {
+      //     if(msg.contents) {
+      //       this.pushArrMsg();
+      //     }
+      // })
+      // 将提交的数据 保存数据库
+      this.saveChatCurrentMsg();
+    }
+
     render() {
         return (
           <View style={{flex: 1, padding: 10, paddingTop: 0,backgroundColor: '#eee'}}>
@@ -124,25 +151,25 @@ class ChatScreen extends React.Component {
                 ({item, index}) => 
                   <View style={{
                     position: 'relative', 
-                    width: item.isMe ? '100%' : '85%', 
+                    width: item._id === this.state.userMsg._id ? '100%' : '85%', 
                     marginTop: 10, 
                     display: 'flex',
-                    flexDirection: item.isMe ? 'row-reverse' : 'row',
+                    flexDirection: item._id === this.state.userMsg._id ? 'row-reverse' : 'row',
                     borderRadius: 5,
                     }} key={item.chatid}>
                     <Image source={{uri: item.uri, width: 40, height: 40}}/>
                     <Text style={{
                       width: 15,height: 15, 
-                      backgroundColor: item.isMe ? '#1AAD19' : '#fff', 
+                      backgroundColor: item._id === this.state.userMsg._id ? '#1AAD19' : '#fff', 
                       marginTop: 10,
                       transform: [{rotate:'45deg'}],
                       position: 'relative',
                       left: 8}}></Text>
                     <Text style={{ 
-                      backgroundColor: item.isMe ? '#1AAD19' : '#fff', 
+                      backgroundColor: item._id === this.state.userMsg._id ? '#1AAD19' : '#fff', 
                       lineHeight: 20, padding: 5, 
                       borderRadius: 5,
-                      marginLeft: item.isMe ? 60 : 0
+                      marginLeft: item._id === this.state.userMsg._id ? 60 : 0
                       }}>
                       {item.text}
                     </Text>

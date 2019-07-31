@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, TouchableOpacity  } from 'react-native';
 import { formateTime } from '../utils/formate-time.js'
 import fetchRequest from '../utils/fetch'
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 class HomeScreen extends React.Component {
@@ -18,12 +19,32 @@ class HomeScreen extends React.Component {
       super(props);
       this.state= {
         dataSource: [],
-        MyId: '5c9f994a3659414c8ab5a19b',
+        MyId: '',
         isLoading: false
       }
     }
 
   componentDidMount(){
+    new Promise((resolve, rejects) => {
+      let userToken =  AsyncStorage.getItem('userToken');
+      resolve(userToken)
+    })
+    .then( userToken => {
+      // 获取我的信息
+      fetchRequest('/get/user/info', 'POST', 
+      {},
+      userToken
+      )
+      .then(res => {
+        console.log(res)
+        if(res.success) {
+          this.setState({
+            MyId: res.data._id
+          })
+        }
+      })
+    })
+
     fetchRequest(
       '/post/getUsersFromPage', 
       'POST', 
@@ -53,7 +74,7 @@ class HomeScreen extends React.Component {
           data={this.state.dataSource}
           renderItem= {
             ({item}) => 
-              <TouchableOpacity onPress={() => {this.props.navigation.navigate('Chat', {roomId: this.state.MyId +'&' + item._id, friendName: item.name})}}>
+              <TouchableOpacity onPress={() => {this.props.navigation.navigate('Chat', {roomId: this.state.MyId +'&' + item._id, friendName: item.name, MyId: this.state.MyId})}}>
                 <View style={styles.container}>
                   <Image  style={styles.image} source={{uri: item.avatar_url, width: 44, height: 44}}  />
                   <View style={styles.txtwarpper}>
