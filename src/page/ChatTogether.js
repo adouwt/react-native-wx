@@ -8,7 +8,7 @@ let socket = Socket('http://localhost:3000');
 class ChatTogetherScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
-          title: '一个搞个小上海',
+          title: '一人搞个小上海',
           headerStyle: {
             backgroundColor: '#fff',
           },
@@ -33,13 +33,14 @@ class ChatTogetherScreen extends React.Component {
         }
     }
     initChatData = () => {
+      // alert(this.props.navigation.state.params.roomId)
         this.setState({
           MyId: this.props.navigation.state.params.MyId,
           roomId: this.props.navigation.state.params.roomId,
         })
         // alert(this.props.navigation.state.params.roomId)
         // 获取聊天室历史信息
-        fetchRequest('/post/getRoomMsg', 'POST', 
+        fetchRequest('/post/getRoomAllMsg', 'POST', 
         {
             roomId: this.props.navigation.state.params.roomId,
         })
