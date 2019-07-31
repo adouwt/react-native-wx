@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, TouchableOpacity, Image} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
+import AsyncStorage from '@react-native-community/async-storage';
+import fetchRequest from '../utils/fetch'
 
 class MyScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -30,12 +32,37 @@ class MyScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            photos: []
+            photos: [],
+            myMsg: {},
+            userToken: ''
         }
     }
 
     componentDidMount() {
-        this.props.navigation.setParams({ takePicture: this._takePicture });
+      new Promise((resolve, rejects) => {
+        let userToken =  AsyncStorage.getItem('userToken');
+        this.setState({
+          userToken: userToken
+        })
+        resolve(userToken)
+      })
+      .then( userToken => {
+        // 获取我的信息
+        fetchRequest('/get/user/info', 'POST', 
+        {},
+        userToken
+        )
+        .then(res => {
+          console.log(res)
+          if(res.success) {
+            this.setState({
+              MyId: res.data._id ,
+              myMsg: res.data
+            })
+          }
+        })
+      })
+      this.props.navigation.setParams({ takePicture: this._takePicture });
     }
     
     _takePicture = () => {
@@ -48,8 +75,26 @@ class MyScreen extends React.Component {
     toLogin = () => {
       this.props.navigation.navigate('Login')
     };
-    toRegister = () => {
-      this.props.navigation.navigate('Register')
+    toExit = () => {
+      new Promise((resolve, rejects) => {
+        let userToken =  AsyncStorage.getItem('userToken');
+        resolve(userToken)
+      })
+      .then( userToken => {
+        // 获取我的信息
+        fetchRequest('/post/logout', 'POST', 
+        {},
+        userToken
+        )
+        .then(res => {
+          console.log(res);
+          if(res.success) {
+            AsyncStorage.removeItem('userToken');
+            // 清楚缓存
+            this.toLogin();
+          }
+        })
+      })
     };
     toShowMyLocation = () => {
       this.props.navigation.navigate('MyLocation')
@@ -63,9 +108,9 @@ class MyScreen extends React.Component {
                 style={styles.ContainerItem}
               >
               <View style={styles.msgHeader}>
-                <Image source={{uri: 'https://pic.qqtn.com/up/2018-5/15252271245423063.jpg', width: 50, height: 50, borderRadius: 5}}></Image>
+                <Image source={{uri: this.state.myMsg.avatar_url, width: 50, height: 50, borderRadius: 5}}></Image>
                 <View style={{flex: 1, flexDirection: 'column', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
-                  <Text style={{fontSize: 20}} >迩伶贰</Text>
+                  <Text style={{fontSize: 20}} >{this.state.myMsg.name}</Text>
                   <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 3}}>
                     <Text >微信号：adouwt</Text>
                     <Icon name="ios-arrow-forward" size={18} color="#333"></Icon>
@@ -206,7 +251,7 @@ class MyScreen extends React.Component {
             </View>
             <View style={{backgroundColor: '#fff', height: 50, padding: 15, marginTop: 15}}>
               <TouchableOpacity
-                onPress={this.toRegister.bind(this)}
+                onPress={this.toExit.bind(this)}
                 style={styles.ContainerItem}
               >
               <View style={styles.msgHeader}>
@@ -214,7 +259,7 @@ class MyScreen extends React.Component {
                   <Icon name="md-settings" size={18} color="#00c1de" ></Icon>
                 </View>
                 <View style={{flex: 1, flexDirection: 'row', marginLeft: 15, justifyContent: 'space-between', height: 50}}>
-                  <Text style={{fontSize: 16}} >注册</Text>
+                  <Text style={{fontSize: 16}} >退出登录</Text>
                   <Icon name="ios-arrow-forward" size={18} color="#333" ></Icon>
                 </View>
               </View>

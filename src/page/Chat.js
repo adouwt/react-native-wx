@@ -4,8 +4,6 @@ import fetchRequest from '../utils/fetch';
 import Icon from "react-native-vector-icons/Ionicons";
 import Socket from 'socket.io-client';
 let socket = Socket('http://localhost:3000');
-let name = false;
-
 
 // 第一次登陆接收其它成员信息
 socket.on('login', function (user) {
